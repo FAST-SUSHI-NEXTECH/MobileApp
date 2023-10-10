@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -14,22 +13,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(right: 0),
+                padding: const EdgeInsets.only(right: 0),
                 child: const Text("FastSushi",
                 style: TextStyle(fontFamily: 'Comfortaa')
                   ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 30),
-                child: SvgPicture.asset("assets/images/logo_blanc.svg",
-                  width: 150,
-                  color: Colors.white,
-                ),
-              ),
+              Image.asset("assets/images/logo_blanc.png"),
             ],
           ),
         backgroundColor: const Color(0xFF000000),
