@@ -31,7 +31,26 @@ class _CommandsPageState extends State<CommandsPage> {
                 height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
                 color: Colors.blue, // Couleur de fond
                 child: Center(
-                  child: Text('Élément $index'),
+                  child: Row(
+                    children: [
+// Première colonne
+                      Text('Colonne 1: '),
+                      Text('Élément $index'), // Contenu de la première colonne
+
+// Espace entre les colonnes
+                      SizedBox(width: 10),
+
+// Deuxième colonne
+                      Text('c 2: '),
+                      Text('colonne'),
+
+                      SizedBox(width: 10),
+
+// Deuxième colonne
+                      Text('c 3: '),
+                      Text('BOUUUUH'),
+                    ],
+                  ),
                 ),
               ),
             );
