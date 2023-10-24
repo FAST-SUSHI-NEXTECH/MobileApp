@@ -7,20 +7,8 @@ class CommandsPage extends StatefulWidget {
   State<CommandsPage> createState() => _CommandsPageState();
 }
 
-final List<String> items = [
-  'Élément 1',
-  'Élément 2',
-  'Élément 3',
-  'Élément 4',
-  'Élément 5',
-  'Élément 6',
-  'Élément 7',
-  'Élément 8',
-  'Élément 9',
-  'Élément 10',
-];
-
 class _CommandsPageState extends State<CommandsPage> {
+  List<bool> isExpanded = List.generate(10, (index) => false);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,12 +18,22 @@ class _CommandsPageState extends State<CommandsPage> {
         ),
 
         body: ListView.builder(
-          itemCount: items.length,
+          itemCount: 10,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(items[index]),
-              // Vous pouvez personnaliser chaque élément de la liste ici.
-              // Par exemple, ajouter des icônes, des images, etc.
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  isExpanded[index] = !isExpanded[index];
+                });
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
+                color: Colors.blue, // Couleur de fond
+                child: Center(
+                  child: Text('Élément $index'),
+                ),
+              ),
             );
           },
         ),
