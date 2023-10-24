@@ -27,7 +27,7 @@ class _CommandsPageState extends State<CommandsPage> {
                 });
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 300),
                 height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
                 color: Colors.blue, // Couleur de fond
                 child: Center(
