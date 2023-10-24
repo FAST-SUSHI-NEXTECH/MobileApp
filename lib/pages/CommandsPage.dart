@@ -50,6 +50,9 @@ class _CommandsPageState extends State<CommandsPage> {
                       Text('c 3: '),
                       Text('BOUUUUH'),
                     ],
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
+                      ),
                   ),
                 ),
               ),
