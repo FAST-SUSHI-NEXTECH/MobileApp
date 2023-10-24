@@ -38,7 +38,9 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
             alignment: AlignmentDirectional.bottomStart,
             margin: const EdgeInsets.only(left: 50, bottom: 50),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, )
+              },
               style: ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
               child: const Text("Revenir"),
             ),
