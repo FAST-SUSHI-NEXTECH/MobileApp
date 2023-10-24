@@ -36,24 +36,20 @@ class _CommandsPageState extends State<CommandsPage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
                       ),
-                      child: Center(
-                        child: Row(
-                          children: [
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
 
-                            Text('Colonne 1: '),
-                            Text('Élément $index'), // première colonne
+                          Text('N°$index'), // Première colonne
 
-                            SizedBox(width: 10),
+                          Text('15h45'), // Deuxième colonne
 
-                            Text('c 2: '),
-                            Text('colonne'), // Deuxième colonne
+                          Text('x1 Sushi, x2 Soupe miso'), // troisième colonne
 
-                            SizedBox(width: 10),
+                          Text('Patrick'), // quatrième colonne
 
-                            Text('c 3: '),
-                            Text('BOUUUUH'), // troisième colonne
-                          ],
-                        ),
+                          Text('Prête'), // cinquième colonne
+                        ],
                       ),
                     ),
                   ),
@@ -67,3 +63,5 @@ class _CommandsPageState extends State<CommandsPage> {
     );
   }
 }
+
+
