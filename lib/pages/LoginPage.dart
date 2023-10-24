@@ -17,20 +17,22 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               padding: const EdgeInsets.only(right: 0),
-              child: const Text("FastSushi",
-                style: TextStyle(fontFamily: 'Comfortaa',
-                    fontSize: 30),
+              child: const Text(
+                "FastSushi",
+                style: TextStyle(fontFamily: 'Comfortaa', fontSize: 30),
               ),
             ),
-            Image.asset("assets/images/logo_blanc.png",
-              width: 100,),
+            Image.asset(
+              "assets/images/logo_blanc.png",
+              width: 100,
+            ),
           ],
         ),
         backgroundColor: const Color(0xFF000000),
         toolbarHeight: 125,
       ),
       body: Container(
-        margin: EdgeInsets.only(right: 150, left: 150),
+        margin: const EdgeInsets.only(right: 150, left: 150),
         child: Form(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,35 +40,58 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 decoration: InputDecoration(
                   hintText: "Identifiant",
-                  border: OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
                       color: Colors.black,
-                    )
+                      width: 2, // Ajustez l'épaisseur de la bordure ici
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               TextFormField(
+                obscureText: true,
+                obscuringCharacter: "*",
                 decoration: InputDecoration(
                   hintText: "Mot de passe",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      )
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                      width: 2, // Ajustez l'épaisseur de la bordure ici
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                  child: const Text("Envoyer"),
+                ),
+              )
             ],
           ),
-
         ),
       ),
     );
   }
 }
-
-
-
-  
