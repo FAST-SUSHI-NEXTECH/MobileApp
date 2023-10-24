@@ -17,49 +17,53 @@ class _CommandsPageState extends State<CommandsPage> {
           title: const Text("Commands Page"),
         ),
 
-        body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  isExpanded[index] = !isExpanded[index];
-                });
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
-                color: Colors.blue, // Couleur de fond
-                child: Center(
-                  child: Row(
-                    children: [
-// Première colonne
-                      Text('Colonne 1: '),
-                      Text('Élément $index'), // Contenu de la première colonne
-
-// Espace entre les colonnes
-                      SizedBox(width: 10),
-
-// Deuxième colonne
-                      Text('c 2: '),
-                      Text('colonne'),
-
-                      SizedBox(width: 10),
-
-// Deuxième colonne
-                      Text('c 3: '),
-                      Text('BOUUUUH'),
-                    ],
+        body: Padding(
+          padding: const EdgeInsets.all(5), // Ajoute un padding de 10 pixels autour de la liste
+          child: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isExpanded[index] = !isExpanded[index];
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
                       ),
+                      child: Center(
+                        child: Row(
+                          children: [
+
+                            Text('Colonne 1: '),
+                            Text('Élément $index'), // première colonne
+
+                            SizedBox(width: 10),
+
+                            Text('c 2: '),
+                            Text('colonne'), // Deuxième colonne
+
+                            SizedBox(width: 10),
+
+                            Text('c 3: '),
+                            Text('BOUUUUH'), // troisième colonne
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                  const SizedBox(height: 5), // Espacement vertical entre les éléments
+                ],
+              );
+            },
+          ),
         ),
-      )
+      ),
     );
   }
 }
