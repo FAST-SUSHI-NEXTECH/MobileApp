@@ -21,15 +21,15 @@ class _CommandsPageState extends State<CommandsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
 
-              Text('numéro'), // Première colonne
+              Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
 
-              Text('Heure d\'arrivée'), // Deuxième colonne
+              Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
 
-              Text('Details de la commande'), // troisième colonne
+              Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
 
-              Text('Préparateur'), // quatrième colonne
+              Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
 
-              Text('Etat commandes'), // cinquième colonne
+              Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // cinquième colonne
             ],
           ),
         ),
@@ -60,13 +60,13 @@ class _CommandsPageState extends State<CommandsPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('N°$index'), // Première colonne
+                              Text('N°$index',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne
 
-                              const Text('15h45'), // Deuxième colonne
+                              const Text('15h45',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
 
-                              const Text('x1 Sushi, x2 Soupe miso'), // troisième colonne
+                              const Text('x1 Sushi, x2 Soupe miso',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
 
-                              const Text('Patrick'), // quatrième colonne
+                              const Text('Patrick',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
 
                               Container( // cinquième colonne
                                 width: 100,
@@ -76,6 +76,7 @@ class _CommandsPageState extends State<CommandsPage> {
                                   child: Text(
                                     "Prête",
                                     style: TextStyle(
+                                      fontFamily: 'Comfortaa',
                                       color: Colors.black54,
                                       fontSize: 18,
                                     ),
@@ -97,6 +98,7 @@ class _CommandsPageState extends State<CommandsPage> {
                               },
                               label: const Text("Commande récupéré",
                                 style: TextStyle(
+                                    fontFamily: 'Comfortaa',
                                     fontSize: 15
                                 ),
                               ),
