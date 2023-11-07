@@ -35,7 +35,7 @@ class _CommandsPageState extends State<CommandsPage> {
         ),
 
         body: Padding(
-          padding: const EdgeInsets.all(5), // Ajoute un padding de 10 pixels autour de la liste
+          padding: const EdgeInsets.all(10), // Ajoute un padding de 10 pixels autour de la liste
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
@@ -53,7 +53,8 @@ class _CommandsPageState extends State<CommandsPage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey.shade600, width: 2), // Bordure noire autour de l'élément
                       ),
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 6),
+                      margin: const EdgeInsets.only(bottom:5),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -82,7 +83,7 @@ class _CommandsPageState extends State<CommandsPage> {
                                     ),
                                   ),
                                 ),
-                              ), // cinquième colonne
+                              ),
                             ],
                           ),
                           Visibility(
