@@ -56,7 +56,6 @@ class _CommandsPageState extends State<CommandsPage> {
                       padding: const EdgeInsets.only(top: 6),
                       margin: const EdgeInsets.only(bottom:5),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
