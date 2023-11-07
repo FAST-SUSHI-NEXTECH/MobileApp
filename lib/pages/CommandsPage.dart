@@ -14,7 +14,24 @@ class _CommandsPageState extends State<CommandsPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Commands Page"),
+          backgroundColor: Colors.black,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 40,
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+
+              Text('numéro'), // Première colonne
+
+              Text('Heure d\'arrivée'), // Deuxième colonne
+
+              Text('Details de la commande'), // troisième colonne
+
+              Text('Préparateur'), // quatrième colonne
+
+              Text('Etat commandes'), // cinquième colonne
+            ],
+          ),
         ),
 
         body: Padding(
