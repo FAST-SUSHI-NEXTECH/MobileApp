@@ -51,7 +51,7 @@ class _CommandsPageState extends State<CommandsPage> {
                       duration: const Duration(milliseconds: 300),
                       height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
+                        border: Border.all(color: Colors.grey.shade600, width: 2), // Bordure noire autour de l'élément
                       ),
                       padding: const EdgeInsets.only(top: 4),
                       child: Column(
@@ -71,12 +71,12 @@ class _CommandsPageState extends State<CommandsPage> {
                               Container( // cinquième colonne
                                 width: 100,
                                 height: 35,
-                                color: Colors.green,
+                                color: Colors.green.shade300,
                                 child: const Center(
                                   child: Text(
                                     "Prête",
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black54,
                                       fontSize: 18,
                                     ),
                                   ),
