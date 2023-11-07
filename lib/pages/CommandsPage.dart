@@ -72,12 +72,21 @@ class _CommandsPageState extends State<CommandsPage> {
                           ),
                           Visibility(
                             visible: isExpanded[index], // Affiche le texte uniquement lorsque l'élément est agrandi
-                            child: const Text(
-                              'Texte à l\'intérieur du conteneur',
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 16,
+                            child: ElevatedButton.icon(
+                              style: const ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(Colors.green)
                               ),
+                              onPressed: () => {
+                                Navigator.push(context, PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) => const CommandsPage()
+                                )),
+                              },
+                              label: const Text("Commande récupéré",
+                                style: TextStyle(
+                                    fontSize: 15
+                                ),
+                              ),
+                              icon: const Icon(Icons.check),
                             ),
                           ),
                         ],
