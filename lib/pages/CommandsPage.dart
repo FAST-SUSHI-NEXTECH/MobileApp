@@ -53,6 +53,7 @@ class _CommandsPageState extends State<CommandsPage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
                       ),
+                      padding: const EdgeInsets.only(top: 4),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
