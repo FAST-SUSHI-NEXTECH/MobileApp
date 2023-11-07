@@ -67,7 +67,20 @@ class _CommandsPageState extends State<CommandsPage> {
 
                               const Text('Patrick'), // quatrième colonne
 
-                              const Text('Prête'), // cinquième colonne
+                              Container( // cinquième colonne
+                                width: 100,
+                                height: 35,
+                                color: Colors.green,
+                                child: const Center(
+                                  child: Text(
+                                    "Prête",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ), // cinquième colonne
                             ],
                           ),
                           Visibility(
