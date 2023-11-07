@@ -53,19 +53,33 @@ class _CommandsPageState extends State<CommandsPage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2), // Bordure noire autour de l'élément
                       ),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('N°$index'), // Première colonne
 
-                          Text('N°$index'), // Première colonne
+                              const Text('15h45'), // Deuxième colonne
 
-                          Text('15h45'), // Deuxième colonne
+                              const Text('x1 Sushi, x2 Soupe miso'), // troisième colonne
 
-                          Text('x1 Sushi, x2 Soupe miso'), // troisième colonne
+                              const Text('Patrick'), // quatrième colonne
 
-                          Text('Patrick'), // quatrième colonne
-
-                          Text('Prête'), // cinquième colonne
+                              const Text('Prête'), // cinquième colonne
+                            ],
+                          ),
+                          Visibility(
+                            visible: isExpanded[index], // Affiche le texte uniquement lorsque l'élément est agrandi
+                            child: const Text(
+                              'Texte à l\'intérieur du conteneur',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
