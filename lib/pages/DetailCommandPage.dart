@@ -1,3 +1,4 @@
+import 'package:dev/pages/CommandsPage.dart';
 import 'package:flutter/material.dart';
 
 class DetailCommandPage extends StatefulWidget {
@@ -32,32 +33,94 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
         backgroundColor: Colors.black,
         toolbarHeight: 85,
       ),
-      body: Row(
-        children: [
-          Container(
-            alignment: AlignmentDirectional.bottomStart,
-            margin: const EdgeInsets.only(left: 50, bottom: 50),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, )
-              },
-              style: ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
-              child: const Text("Revenir"),
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 25, // Position en haut
+            left: 25, // Position à gauche
+            right: 25, // Position à droite
+            bottom:
+                150, // Position en bas avec un espace vertical de 100 pixels
+            child: Container(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Container(
+                      width: 222,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25))),
+                  SizedBox(width: 25),
+                  Container(
+                      width: 222,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25))),
+                  SizedBox(width: 25),
+                  Container(
+                      width: 222,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25))),
+                  SizedBox(width: 25),
+                  Container(
+                      width: 222,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25))),
+                  SizedBox(width: 25),
+                  Container(
+                      width: 222,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25))),
+                ],
+              ),
             ),
           ),
-          SizedBox(width: 800),
-          Container(
-            alignment: AlignmentDirectional.bottomEnd,
-            margin: const EdgeInsets.only(right: 50, bottom: 50),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
-              child: const Text("Terminer"),
-            ),
+          Row(
+            children: [
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  alignment: AlignmentDirectional.bottomStart,
+                  margin: const EdgeInsets.only(left: 50, bottom: 50),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              pageBuilder: (_, __, ___) =>
+                                  const CommandsPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(175, 75)),
+                    child: const Text("Revenir"),
+                  ),
+                ),
+              ),
+              SizedBox(width: 800),
+              Container(
+                alignment: AlignmentDirectional.bottomEnd,
+                margin: const EdgeInsets.only(right: 50, bottom: 50),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) => const CommandsPage()));
+                  },
+                  style:
+                      ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
+                  child: const Text("Terminer"),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-
     );
   }
 }
