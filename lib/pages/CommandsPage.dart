@@ -8,7 +8,7 @@ class CommandsPage extends StatefulWidget {
 }
 
 class _CommandsPageState extends State<CommandsPage> {
-  List<bool> isExpanded = List.generate(10, (index) => false);
+  int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,12 +44,16 @@ class _CommandsPageState extends State<CommandsPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        isExpanded[index] = !isExpanded[index];
+                        if (expandedIndex == index) {
+                          expandedIndex = -1; // Rétracte l'élément si c'est déjà étendu
+                        } else {
+                          expandedIndex = index; // Étend l'élément cliqué
+                        }
                       });
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
-                      height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
+                      height: expandedIndex == index ? 100.0 : 50.0, // Hauteur agrandie ou normale
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey.shade600, width: 2), // Bordure noire autour de l'élément
                       ),
@@ -86,10 +90,10 @@ class _CommandsPageState extends State<CommandsPage> {
                             ],
                           ),
                           Visibility(
-                            visible: isExpanded[index], // Affiche le texte uniquement lorsque l'élément est agrandi
+                            visible: expandedIndex == index, // Affiche le texte uniquement lorsque l'élément est agrandi
                             child: ElevatedButton.icon(
-                              style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(Colors.green)
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(Colors.green)
                               ),
                               onPressed: () => {
                                 Navigator.push(context, PageRouteBuilder(
