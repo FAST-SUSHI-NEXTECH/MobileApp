@@ -48,7 +48,7 @@ class _CommandsPageState extends State<CommandsPage> {
                       });
                     },
                     child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 250),
                       height: isExpanded[index] ? 100.0 : 50.0, // Hauteur agrandie ou normale
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey.shade600, width: 2), // Bordure noire autour de l'élément
