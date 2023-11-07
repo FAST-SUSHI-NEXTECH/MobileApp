@@ -18,16 +18,22 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
     } else {
       spacing = 300;
     }
+    Padding paddedText(String text) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 2), // Ajustez la valeur selon vos besoins
+        child: Text(text,style: const TextStyle(fontFamily: 'Comfortaa')),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Wrap(
           spacing: spacing,
           children: const [
-            Text("Clovis Delacroix"),
-            Text("N°6"),
-            Text("15h56"),
-            Text("50,00 €"),
+            Text("Clovis Delacroix",style: TextStyle(fontFamily: 'Comfortaa')),
+            Text("N°6", style: TextStyle(fontFamily: 'Comfortaa')),
+            Text("15h56",style: TextStyle(fontFamily: 'Comfortaa')),
+            Text("50,00 €",style: TextStyle(fontFamily: 'Comfortaa')),
           ],
         ),
         backgroundColor: Colors.black,
@@ -46,34 +52,133 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   Container(
-                      width: 222,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25))),
+                    width: 222,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Entree",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                        ),
+                        paddedText("Test 1"),
+                        paddedText("Test 2"),
+                        paddedText("Test 3"),
+                        paddedText("Test 4"),
+                        paddedText("Test 5"),
+                        paddedText("Test 6"),
+                        paddedText("Test 7"),
+                        paddedText("Test 8"),
+                        paddedText("Test 9"),
+                        paddedText("Test 10"),
+                      ],
+                    ),
+                  ),
                   SizedBox(width: 25),
                   Container(
-                      width: 222,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25))),
+                    width: 222,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Plat",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                        ),
+                        paddedText("Test 1"),
+                        paddedText("Test 2"),
+                        paddedText("Test 3"),
+                        paddedText("Test 4"),
+                        paddedText("Test 5"),
+                        paddedText("Test 6"),
+                        paddedText("Test 7"),
+                        paddedText("Test 8"),
+                        paddedText("Test 9"),
+                        paddedText("Test 10"),
+                      ],
+                    ),
+                  ),
                   SizedBox(width: 25),
                   Container(
-                      width: 222,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25))),
+                    width: 222,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Dessert",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                        ),
+                        paddedText("Test 1"),
+                        paddedText("Test 2"),
+                        paddedText("Test 3"),
+                        paddedText("Test 4"),
+                        paddedText("Test 5"),
+                        paddedText("Test 6"),
+                        paddedText("Test 7"),
+                        paddedText("Test 8"),
+                        paddedText("Test 9"),
+                        paddedText("Test 10"),
+                      ],
+                    ),
+                  ),
                   SizedBox(width: 25),
                   Container(
-                      width: 222,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25))),
+                    width: 222,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Sushi préfaits",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                        ),
+                        paddedText("Test 1"),
+                        paddedText("Test 2"),
+                        paddedText("Test 3"),
+                        paddedText("Test 4"),
+                        paddedText("Test 5"),
+                        paddedText("Test 6"),
+                        paddedText("Test 7"),
+                        paddedText("Test 8"),
+                        paddedText("Test 9"),
+                        paddedText("Test 10"),
+                      ],
+                    ),
+                  ),
                   SizedBox(width: 25),
                   Container(
-                      width: 222,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25))),
+                    width: 222,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [const Padding(padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Sushi custom",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                      ),
+                        paddedText("Test 1"),
+                        paddedText("Test 2"),
+                        paddedText("Test 3"),
+                        paddedText("Test 4"),
+                        paddedText("Test 5"),
+                        paddedText("Test 6"),
+                        paddedText("Test 7"),
+                        paddedText("Test 8"),
+                        paddedText("Test 9"),
+                        paddedText("Test 10"),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -97,7 +202,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     },
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(175, 75)),
-                    child: const Text("Revenir"),
+                    child: const Text("Revenir",style: TextStyle(fontFamily: 'Comfortaa'),),
                   ),
                 ),
               ),
@@ -114,7 +219,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                   },
                   style:
                       ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
-                  child: const Text("Terminer"),
+                  child: const Text("Terminer",style: TextStyle(fontFamily: 'Comfortaa'),),
                 ),
               ),
             ],
