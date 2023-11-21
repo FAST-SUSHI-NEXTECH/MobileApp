@@ -12,10 +12,10 @@ class _CommandsPageState extends State<CommandsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+      home: Scaffold( // Remplit l'espace disponible
         appBar: AppBar(
           backgroundColor: Colors.black,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false, // Supprime le bouton pour revenir en arrière
           toolbarHeight: 40,
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -100,7 +100,7 @@ class _CommandsPageState extends State<CommandsPage> {
                                     pageBuilder: (_, __, ___) => const CommandsPage()
                                 )),
                               },
-                              label: const Text("Commande récupéré",
+                              label: const Text("Commande récupérée",
                                 style: TextStyle(
                                     fontFamily: 'Comfortaa',
                                     fontSize: 15
