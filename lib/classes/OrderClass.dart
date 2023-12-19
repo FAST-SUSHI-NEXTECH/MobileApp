@@ -7,8 +7,9 @@ import 'package:dev/conf.dart';
 class Order {
   final int? idOrder;
   final String? time;
+  final int? orderState;
 
-  Order({this.idOrder, this.time});
+  Order({this.idOrder, this.time, this.orderState});
 }
 
 class Orders {
@@ -41,7 +42,14 @@ class Orders {
             // Formate l'heure au format "HH:mm"
           }
 
-          orders.add(Order(idOrder: idOrder, time: time));
+          int? orderState;
+          if (order['order_state'] != null) {
+            orderState = int.parse(order['order_state'].toString());
+          } else {
+            orderState = null;
+          }
+
+          orders.add(Order(idOrder: idOrder, time: time, orderState: orderState));
         }
         return orders;
       } else {
