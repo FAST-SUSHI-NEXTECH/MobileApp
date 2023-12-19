@@ -10,24 +10,22 @@ class OrdersPage extends StatefulWidget {
 
 class _OrdersPageState extends State<OrdersPage> {
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
-  // Instanciez la classe Orders
+  // Instancie la classe Orders
   Orders orders = Orders();
-
-  // Liste pour stocker les id_command
-  List<int?> idOrders = [];
+  List<Order> ordersList = []; // Liste pour stocker les objets Order
 
   @override
   void initState() {
     super.initState();
-    // Appelez la méthode fetchOrders lors de l'initialisation de la page
+    // Appel de la méthode fetchOrders lors de l'initialisation de la page
     fetchIdOrders();
   }
 
-  // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste idOrders
+  // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste Order
   Future<void> fetchIdOrders() async {
-    List<int?> ordersList = await orders.fetchIdOrders();
+    List<Order> fetchedOrders = await orders.fetchIdOrders();
     setState(() {
-      idOrders = ordersList;
+      ordersList = fetchedOrders;
     });
   }
 
@@ -59,8 +57,9 @@ class _OrdersPageState extends State<OrdersPage> {
         body: Padding(
           padding: const EdgeInsets.all(10), // Ajoute un padding de 10 pixels autour de la liste
           child: ListView.builder(
-            itemCount: idOrders.length,
+            itemCount: ordersList.length,
             itemBuilder: (context, index) {
+              Order order = ordersList[index];
               return Column(
                 children: [
                   GestureDetector(
@@ -86,9 +85,9 @@ class _OrdersPageState extends State<OrdersPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('N°${idOrders[index]}',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne
+                              Text('N°${order.idOrder}',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne (Id Order)
 
-                              const Text('15h45',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
+                              Text(order.time ?? 'Inconnu', style: const TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne (Heure)
 
                               const Text('x1 Sushi, x2 Soupe miso',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
 
