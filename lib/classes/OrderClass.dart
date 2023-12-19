@@ -6,6 +6,11 @@ import 'package:dev/conf.dart';
 class Orders {
   Future<List<int?>> fetchIdOrders() async {
       final response = await http.get(Uri.parse("$ipApi/order"));
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('Réponse: ${response.body}');
+        }
         List<dynamic> ordersList = json.decode(response.body);
         List<int?> idOrders = [];
 
@@ -18,5 +23,11 @@ class Orders {
           }
         }
         return idOrders;
+      } else {
+        if (kDebugMode) {
+          print('Erreur: ${response.statusCode}');
+        }
+        return [];
+      }
   }
 }
