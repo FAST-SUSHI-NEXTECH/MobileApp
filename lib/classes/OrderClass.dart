@@ -5,6 +5,7 @@ import 'package:dev/conf.dart';
 
 class Orders {
   Future<List<int?>> fetchIdOrders() async {
+    try {
       final response = await http.get(Uri.parse("$ipApi/order"));
 
       if (response.statusCode == 200) {
@@ -29,5 +30,11 @@ class Orders {
         }
         return [];
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Exception: $e');
+      }
+      return [];
+    }
   }
 }
