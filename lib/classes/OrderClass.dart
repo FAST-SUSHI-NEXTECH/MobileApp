@@ -13,7 +13,7 @@ class Order {
 }
 
 class Orders {
-  Future<List<Order>> fetchIdOrders() async {
+  Future<List<Order>> fetchOrders() async {
     try {
       final response = await http.get(Uri.parse("$ipApi/order"));
 
