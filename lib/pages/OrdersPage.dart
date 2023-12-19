@@ -10,14 +10,27 @@ class OrdersPage extends StatefulWidget {
 
 class _OrdersPageState extends State<OrdersPage> {
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
+  // Instanciez la classe Orders
+  Orders orders = Orders();
+
+  // Liste pour stocker les id_command
   List<int?> idOrders = [];
 
+  @override
+  void initState() {
     super.initState();
     // Appelez la méthode fetchOrders lors de l'initialisation de la page
     fetchIdOrders();
   }
+
+  // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste idOrders
+  Future<void> fetchIdOrders() async {
+    List<int?> ordersList = await orders.fetchIdOrders();
     setState(() {
       idOrders = ordersList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
