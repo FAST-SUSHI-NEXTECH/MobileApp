@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:dev/classes/OrderClass.dart';
 
-class CommandsPage extends StatefulWidget {
-  const CommandsPage({Key? key}) : super(key: key);
+class OrdersPage extends StatefulWidget {
+  const OrdersPage({Key? key}) : super(key: key);
 
   @override
-  State<CommandsPage> createState() => _CommandsPageState();
+  State<OrdersPage> createState() => _OrdersPageState();
 }
 
-class _CommandsPageState extends State<CommandsPage> {
+class _OrdersPageState extends State<OrdersPage> {
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
+  List<int?> idOrders = [];
+
+    super.initState();
+    // Appelez la méthode fetchOrders lors de l'initialisation de la page
+    fetchIdOrders();
+  }
+    setState(() {
+      idOrders = ordersList;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +46,7 @@ class _CommandsPageState extends State<CommandsPage> {
         body: Padding(
           padding: const EdgeInsets.all(10), // Ajoute un padding de 10 pixels autour de la liste
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: idOrders.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -64,7 +73,7 @@ class _CommandsPageState extends State<CommandsPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('N°$index',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne
+                              Text('N°${idOrders[index]}',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne
 
                               const Text('15h45',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
 
@@ -97,7 +106,7 @@ class _CommandsPageState extends State<CommandsPage> {
                               ),
                               onPressed: () => {
                                 Navigator.push(context, PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => const CommandsPage()
+                                    pageBuilder: (_, __, ___) => const OrdersPage()
                                 )),
                               },
                               label: const Text("Commande récupérée",
