@@ -18,12 +18,12 @@ class _OrdersPageState extends State<OrdersPage> {
   void initState() {
     super.initState();
     // Appel de la méthode fetchOrders lors de l'initialisation de la page
-    fetchIdOrders();
+    fetchOrders();
   }
 
   // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste Order
-  Future<void> fetchIdOrders() async {
-    List<Order> fetchedOrders = await orders.fetchIdOrders();
+  Future<void> fetchOrders() async {
+    List<Order> fetchedOrders = await orders.fetchOrders();
     setState(() {
       ordersList = fetchedOrders;
     });
