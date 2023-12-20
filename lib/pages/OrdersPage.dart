@@ -29,6 +29,61 @@ class _OrdersPageState extends State<OrdersPage> {
     });
   }
 
+  Widget _buildOrderStateContainer(int? orderState) {
+    switch (orderState) {
+      case 1:
+        return Container(
+          width: 150,
+          height: 35,
+          color: Colors.red.shade200,
+          child: const Center(
+            child: Text(
+              "En attente",
+              style: TextStyle(
+                fontFamily: 'Comfortaa',
+                color: Colors.black54,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        );
+      case 2:
+        return Container(
+          width: 150,
+          height: 35,
+          color: Colors.orange.shade200,
+          child: const Center(
+            child: Text(
+              "En cours",
+              style: TextStyle(
+                fontFamily: 'Comfortaa',
+                color: Colors.black54,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        );
+      case 3:
+        return Container(
+          width: 150,
+          height: 35,
+          color: Colors.green.shade200,
+          child: const Center(
+            child: Text(
+              "Prête",
+              style: TextStyle(
+                fontFamily: 'Comfortaa',
+                color: Colors.black54,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        );
+      default:
+        return Container(); // Conteneur vide ou avec un contenu par défaut
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -89,25 +144,11 @@ class _OrdersPageState extends State<OrdersPage> {
 
                               Text(order.time ?? 'Inconnu', style: const TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne (Heure)
 
-                              const Text('x1 Sushi, x2 Soupe miso',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                              Text('détails de la commande : ${order.idOrder}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
 
-                              const Text('Patrick',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
+                              Text('Id préparateur : ${order.idPicker}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
 
-                              Container( // cinquième colonne
-                                width: 100,
-                                height: 35,
-                                color: Colors.green.shade300,
-                                child: const Center(
-                                  child: Text(
-                                    "Prête",
-                                    style: TextStyle(
-                                      fontFamily: 'Comfortaa',
-                                      color: Colors.black54,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _buildOrderStateContainer(order.orderState),
                             ],
                           ),
                           Visibility(
