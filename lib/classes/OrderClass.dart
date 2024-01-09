@@ -16,11 +16,11 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-      'id_command': int idOrder,
+      'id_order': int idOrder,
       'id_client': int idClient,
-      'id_prepa': int idPrepa,
-      'etat_command': int stateOrder,
-      'timestamp': String timestamp,
+      'id_picker': int idPrepa,
+      'order_state': int stateOrder,
+      'date': String timestamp,
       } =>
           Order(
             idOrder: idOrder,

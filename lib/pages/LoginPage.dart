@@ -1,9 +1,20 @@
+
+import 'package:dev/pages/DetailCommandPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:convert';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:intl/intl.dart';
+
+
+class Picker {
+  final String? nom;
+  final String? prenom;
+  final int? permission;
+
+  Picker({this.nom,this.prenom,this.permission});
+
+}
 
 
 class LoginPage extends StatefulWidget {
@@ -17,10 +28,15 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String _popupMessage = '';
+  String? prenom;
+  String? nom;
+  int? permission;
+  bool autorise = false;
 
 
-  void postData() async {
-    print('test');
+ Future<void>postData() async {
+
+    print('Autre chose');
     print(usernameController.text);
     print(passwordController.text);
     final response = await http.post(
@@ -34,32 +50,39 @@ class _LoginPageState extends State<LoginPage> {
         'password': passwordController.text,
       }),
     );
-
+    List<dynamic> ResponseBody = json.decode(response.body);
     if (response.statusCode == 200) {
       // Gérer la réponse réussie ici
       print('Réponse du serveur : ${response.body}');
+      for(var response in ResponseBody){
+        if(response['last_name'] != null){
+          nom = response['last_name'].toString();
+        } else {
+          nom = null;
+        }
+        if (response['first_name'] != null) {
+          prenom = response['first_name'].toString();
+        } else {
+          prenom = null;
+        }
+        if (response['permission'] != null) {
+           permission = int.parse(response['permission'].toString());
+        } else {
+          permission = null;
+        }
+      }
+      print(permission);
+      if(permission == 2){
+          autorise = true;
+      } else {
+        const Text("Vous avez pas les permissions",style: TextStyle(fontSize: 20));
+      }
     } else {
       // Gérer l'échec de la requête ici
       print('Échec de la requête : ${response.statusCode}');
     }
   }
 
-  // void sendEmail(String nom, String prenom, String numero, String email) async {
-  //   final Uri emailLaunchUri = Uri(
-  //     scheme: 'mailto',
-  //     path: 'esposito.raphael1@gmail.com',
-  //     queryParameters: {
-  //       'subject': 'Informations utilisateur',
-  //       'body': 'Nom: $nom\nPrénom: $prenom\nNuméro de téléphone: $numero\nEmail: $email',
-  //     },
-  //   );
-  //
-  //   if (await canLaunchUrlString(emailLaunchUri.toString())) {
-  //     await launchUrlString(emailLaunchUri.toString());
-  //   } else {
-  //     print('Impossible de lancer l\'e-mail.');
-  //   }
-  // }
 
   void showForgotPwdPopup(BuildContext context) {
     String nom = '';
@@ -255,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     width: 500,
                     child: TextFormField(
-                      controller: passwordController,
+                      controller:passwordController,
                       obscureText: true,
                       obscuringCharacter: "*",
                       decoration: const InputDecoration(
@@ -271,7 +294,14 @@ class _LoginPageState extends State<LoginPage> {
                     width: 200,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: postData,
+                      onPressed: (){
+                        postData().then((_) {
+                          if (autorise) {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => DetailCommandPage()));
+                          }
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),
                       child: const Text("Connexion"),

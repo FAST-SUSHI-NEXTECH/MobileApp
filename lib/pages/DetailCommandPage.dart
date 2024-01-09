@@ -52,6 +52,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   Container(
+                    margin: const EdgeInsets.only(left: 8),
                     width: 222,
                     decoration: BoxDecoration(
                         border: Border.all(width: 2.0, color: Colors.black),
@@ -191,7 +192,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                 bottom: 0,
                 child: Container(
                   alignment: AlignmentDirectional.bottomStart,
-                  margin: const EdgeInsets.only(left: 50, bottom: 50),
+                  margin: const EdgeInsets.only(left: 100, bottom: 40),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -201,15 +202,22 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                                   const CommandsPage()));
                     },
                     style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(175, 75)),
-                    child: const Text("Revenir",style: TextStyle(fontFamily: 'Comfortaa'),),
+                        fixedSize: const Size(200, 75),
+                        shape: const StadiumBorder(),
+                        backgroundColor: Colors.black
+                    ),
+                    child: const Text("Revenir",
+                      style: TextStyle(fontFamily: 'Comfortaa',
+                                        fontSize: 20
+                      )
+                    ),
                   ),
                 ),
               ),
-              SizedBox(width: 800),
+              const SizedBox(width: 675),
               Container(
                 alignment: AlignmentDirectional.bottomEnd,
-                margin: const EdgeInsets.only(right: 50, bottom: 50),
+                margin: const EdgeInsets.only(right: 50, bottom: 40),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -217,9 +225,12 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => const CommandsPage()));
                   },
-                  style:
-                      ElevatedButton.styleFrom(fixedSize: const Size(175, 75)),
-                  child: const Text("Terminer",style: TextStyle(fontFamily: 'Comfortaa'),),
+                  style: ElevatedButton.styleFrom(fixedSize: const Size(200, 75),
+                         shape: const StadiumBorder(),
+                         backgroundColor: Colors.black
+                  ),
+
+                  child: const Text("Terminer",style: TextStyle(fontFamily: 'Comfortaa',fontSize: 20)),
                 ),
               ),
             ],
