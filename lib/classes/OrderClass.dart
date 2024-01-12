@@ -35,36 +35,51 @@ class Orders {
               idOrder = null;
             }
 
-          int? idOrder;
-          if (order['id_order'] != null) {
-            idOrder = int.parse(order['id_order'].toString());
-          } else {
-            idOrder = null;
-          }
+            String? time;
+            if (order['date'] != null) {
+              String dateTime = order['date'];
+              DateTime parsedDateTime = DateTime.parse(dateTime).toLocal();
+              time = "${parsedDateTime.hour.toString().padLeft(
+                  2, '0')}:${parsedDateTime.minute.toString().padLeft(2, '0')}";
+              // Formate l'heure au format "HH:mm"
+            }
 
-          String? time;
-          if (order['date'] != null) {
-            String dateTime = order['date'];
-            DateTime parsedDateTime = DateTime.parse(dateTime).toLocal();
-            time = "${parsedDateTime.hour.toString().padLeft(2, '0')}:${parsedDateTime.minute.toString().padLeft(2, '0')}";
-            // Formate l'heure au format "HH:mm"
-          }
+            int? idPicker;
+            if (order['id_picker'] != null) {
+              idPicker = int.parse(order['id_picker'].toString());
+            } else {
+              idPicker = null;
+            }
 
-          int? idPicker;
-          if (order['id_picker'] != null) {
-            idPicker = int.parse(order['id_picker'].toString());
-          } else {
-            idPicker = null;
-          }
+            int? orderState;
+            if (order['order_state'] != null) {
+              orderState = int.parse(order['order_state'].toString());
+            } else {
+              orderState = null;
+            }
 
-          int? orderState;
-          if (order['order_state'] != null) {
-            orderState = int.parse(order['order_state'].toString());
-          } else {
-            orderState = null;
+            orders.add(Order(idOrder: idOrder,
+                time: time,
+                idPicker: idPicker,
+                orderState: orderState));
           }
+        }
+        return orders;
+      } else {
+        if (kDebugMode) {
+          print('Erreur: ${response.statusCode}');
+        }
+        return [];
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Exception: $e');
+      }
+      return [];
+    }
+  }
 
-          orders.add(Order(idOrder: idOrder, time: time, idPicker: idPicker, orderState: orderState));
+
         }
         return orders;
       } else {
