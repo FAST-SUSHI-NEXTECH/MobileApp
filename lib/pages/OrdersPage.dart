@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dev/classes/OrderClass.dart';
+import 'package:dev/widgets/order_state_container.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -29,59 +30,6 @@ class _OrdersPageState extends State<OrdersPage> {
     });
   }
 
-  Widget _buildOrderStateContainer(int? orderState) {
-    switch (orderState) {
-      case 1:
-        return Container(
-          width: 150,
-          height: 35,
-          color: Colors.red.shade200,
-          child: const Center(
-            child: Text(
-              "En attente",
-              style: TextStyle(
-                fontFamily: 'Comfortaa',
-                color: Colors.black54,
-                fontSize: 18,
-              ),
-            ),
-          ),
-        );
-      case 2:
-        return Container(
-          width: 150,
-          height: 35,
-          color: Colors.orange.shade200,
-          child: const Center(
-            child: Text(
-              "En cours",
-              style: TextStyle(
-                fontFamily: 'Comfortaa',
-                color: Colors.black54,
-                fontSize: 18,
-              ),
-            ),
-          ),
-        );
-      case 3:
-        return Container(
-          width: 150,
-          height: 35,
-          color: Colors.green.shade200,
-          child: const Center(
-            child: Text(
-              "Prête",
-              style: TextStyle(
-                fontFamily: 'Comfortaa',
-                color: Colors.black54,
-                fontSize: 18,
-              ),
-            ),
-          ),
-        );
-      default:
-        return Container(); // Conteneur vide ou avec un contenu par défaut
-    }
   }
 
   @override
@@ -147,8 +95,8 @@ class _OrdersPageState extends State<OrdersPage> {
                               Text('détails de la commande : ${order.idOrder}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
 
                               Text('Id préparateur : ${order.idPicker}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
+                              OrderStateContainer(orderState: order.orderState)
 
-                              _buildOrderStateContainer(order.orderState),
                             ],
                           ),
                           Visibility(
