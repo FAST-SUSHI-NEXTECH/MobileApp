@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dev/classes/OrderClass.dart';
+import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -107,22 +108,10 @@ class _OrdersPageState extends State<OrdersPage> {
                           Expanded(
                           child : Visibility(
                             visible: expandedIndex == index, // Affiche le texte uniquement lorsque l'élément est agrandi
-                            child: ElevatedButton.icon(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Colors.green)
-                              ),
-                              onPressed: () => {
-                                Navigator.push(context, PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => const OrdersPage()
-                                )),
-                              },
-                              label: const Text("Commande récupérée",
-                                style: TextStyle(
-                                    fontFamily: 'Comfortaa',
-                                    fontSize: 15
-                                ),
-                              ),
-                              icon: const Icon(Icons.check),
+                            child: OrderStateButton(
+                              orderState: order.orderState,
+                              order: order,
+                              onUpdateOrderState: updateOrderState,
                             ),
                            ),
                           ),
