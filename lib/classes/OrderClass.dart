@@ -149,4 +149,25 @@ class Orders {
       return [];
     }
   }
+
+  Future<http.Response> updateOrderState(int? orderState, int? orderId) async {
+    final url = Uri.parse("$ipApi/order/state/update");
+
+    Map<String, dynamic> body = {
+      'order_state': orderState,
+      'id_order': orderId
+    };
+
+    final response = await http.put(
+      url,
+      headers: {
+        'Authorization': 'Bearer $tokenApi',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: json.encode(body),
+    );
+
+    return response;
+  }
 }
