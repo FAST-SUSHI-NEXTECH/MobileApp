@@ -1,4 +1,5 @@
 import 'package:dev/pages/CommandsPage.dart';
+import 'package:dev/widgets/CustomNavBarWidget.dart';
 import 'package:flutter/material.dart';
 
 class DetailCommandPage extends StatefulWidget {
@@ -237,6 +238,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
           ),
         ],
       ),
+      // bottomNavigationBar: const CustomNavBarWidget(),
     );
   }
 }

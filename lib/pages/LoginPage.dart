@@ -1,21 +1,21 @@
+import 'dart:math';
 
+import 'package:dev/conf.dart';
 import 'package:dev/pages/DetailCommandPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-
+import 'package:dev/conf.dart';
 
 class Picker {
   final String? nom;
   final String? prenom;
   final int? permission;
 
-  Picker({this.nom,this.prenom,this.permission});
-
+  Picker({this.nom, this.prenom, this.permission});
 }
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -33,12 +33,10 @@ class _LoginPageState extends State<LoginPage> {
   int? permission;
   bool autorise = false;
 
+  Future<void> postData() async {
+    // print(usernameController.text);
+    // print(passwordController.text);
 
- Future<void>postData() async {
-
-    print('Autre chose');
-    print(usernameController.text);
-    print(passwordController.text);
     final response = await http.post(
       Uri.parse('http://185.255.112.208:3000/login'),
       headers: {
@@ -50,39 +48,80 @@ class _LoginPageState extends State<LoginPage> {
         'password': passwordController.text,
       }),
     );
-    List<dynamic> ResponseBody = json.decode(response.body);
+    print(response.statusCode);
+    Map<String,dynamic> ResponseBody = json.decode(response.body);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       // Gérer la réponse réussie ici
-      print('Réponse du serveur : ${response.body}');
-      for(var response in ResponseBody){
-        if(response['last_name'] != null){
-          nom = response['last_name'].toString();
+      // print('Réponse du serveur : ${response.body}');
+        if (ResponseBody['token'] != null) {
+          Conf.token = ResponseBody['token'].toString();
         } else {
-          nom = null;
+          Conf.token = null;
         }
-        if (response['first_name'] != null) {
-          prenom = response['first_name'].toString();
-        } else {
-          prenom = null;
-        }
-        if (response['permission'] != null) {
-           permission = int.parse(response['permission'].toString());
-        } else {
-          permission = null;
-        }
-      }
-      print(permission);
-      if(permission == 2){
-          autorise = true;
-      } else {
-        const Text("Vous avez pas les permissions",style: TextStyle(fontSize: 20));
-      }
+      // print(Conf.token);
     } else {
       // Gérer l'échec de la requête ici
       print('Échec de la requête : ${response.statusCode}');
     }
   }
 
+  Future<void> getData() async {
+    final response = await http.get(
+      Uri.parse('http://185.255.112.208:3000/user/info'),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${Conf.token}',
+      },
+    );
+    // print(response.body);
+    var ResponseBody = json.decode(response.body);
+    print(response.statusCode);
+    if(response.statusCode == 200) {
+      for (var singleUser in ResponseBody) {
+        if(singleUser['last_name'] != null){
+          nom = singleUser['last_name'].toString();
+        } else {
+          nom = null;
+        }
+        if(singleUser['first_name'] != null){
+          prenom = singleUser['first_name'].toString();
+        } else {
+          prenom = null;
+        }
+        if(singleUser['permission'] != null){
+          permission = int.parse(singleUser['permission'].toString());
+        } else {
+          permission = null;
+        }
+    }
+      print(nom);
+      print(prenom);
+      print(permission);
+      if (permission == 2) {
+        autorise = true;
+      } else {
+        const Text("Vous avez pas les permissions",
+            style: TextStyle(fontSize: 20));
+      }
+    }
+  }
+  void _handleLogin() async {
+    await postData(); // Attend la fin de la requête postData
+
+    if (autorise) {
+      // La requête postData est terminée et autorisée, maintenant effectuez getData
+      await getData(); // Attend la fin de la requête getData
+
+      // Naviguez vers la page suivante uniquement si la requête getData est terminée avec succès
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailCommandPage(),
+        ),
+      );
+    }
+  }
 
   void showForgotPwdPopup(BuildContext context) {
     String nom = '';
@@ -146,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Annuler',style: TextStyle(fontSize: 18)),
+                  child: const Text('Annuler', style: TextStyle(fontSize: 18)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -158,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     _showConfirmationPopup(context);
                   },
-                  child: const Text('Envoyer',style: TextStyle(fontSize: 18)),
+                  child: const Text('Envoyer', style: TextStyle(fontSize: 18)),
                 ),
               ],
             ),
@@ -200,12 +239,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
-
   Future<String> _getCurrentTime() async {
     DateTime now = DateTime.now();
-    DateTime adjustedTime = now.add(const Duration(hours: 1)); // Utilisez toLocal pour ajuster le fuseau horaire
-    String formattedTime = DateFormat.Hm().format(adjustedTime); // Utilisez DateFormat pour formater l'heure
+    DateTime adjustedTime = now.add(const Duration(
+        hours: 1)); // Utilisez toLocal pour ajuster le fuseau horaire
+    String formattedTime = DateFormat.Hm()
+        .format(adjustedTime); // Utilisez DateFormat pour formater l'heure
     return formattedTime;
   }
 
@@ -217,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin : EdgeInsets.only(left: 100),
+              margin: EdgeInsets.only(left: 100),
               padding: const EdgeInsets.only(right: 0),
               child: const Text(
                 "FastSushi",
@@ -278,7 +317,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     width: 500,
                     child: TextFormField(
-                      controller:passwordController,
+                      controller: passwordController,
                       obscureText: true,
                       obscuringCharacter: "*",
                       decoration: const InputDecoration(
@@ -294,13 +333,8 @@ class _LoginPageState extends State<LoginPage> {
                     width: 200,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: (){
-                        postData().then((_) {
-                          if (autorise) {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => DetailCommandPage()));
-                          }
-                        });
+                      onPressed: () {
+                        _handleLogin();
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),
