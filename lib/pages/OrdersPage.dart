@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dev/classes/OrderClass.dart';
 import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
+import 'package:dev/pages/DetailOrderPage.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
