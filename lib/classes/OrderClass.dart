@@ -16,7 +16,13 @@ class Order {
 class Orders {
   Future<List<Order>> fetchOrders() async {
     try {
-      final response = await http.get(Uri.parse("$ipApi/order"));
+      final response = await http.get(
+        Uri.parse("$ipApi/order"),
+        headers: {
+          'Authorization': 'Bearer $tokenApi',
+          'Accept': 'application/json',
+        },
+      );
 
       if (response.statusCode == 200) {
         if (kDebugMode) {
