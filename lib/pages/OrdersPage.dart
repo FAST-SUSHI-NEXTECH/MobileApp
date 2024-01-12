@@ -30,6 +30,11 @@ class _OrdersPageState extends State<OrdersPage> {
     });
   }
 
+  // Méthode pour appeler updateOrderState et mettre à jour l'état de la commande
+  Future<void> updateOrderState(int? orderState, int? orderId) async {
+    await orders.updateOrderState(orderState, orderId);
+    // Recharger les commandes pour mettre à jour l'interface utilisateur
+    fetchOrders();
   }
 
   @override
