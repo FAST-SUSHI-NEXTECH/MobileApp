@@ -27,6 +27,13 @@ class Orders {
         List<Order> orders = [];
 
         for (var order in ordersList) {
+          if (order['order_state'] != 3) {
+            int? idOrder;
+            if (order['id_order'] != null) {
+              idOrder = int.parse(order['id_order'].toString());
+            } else {
+              idOrder = null;
+            }
 
           int? idOrder;
           if (order['id_order'] != null) {
