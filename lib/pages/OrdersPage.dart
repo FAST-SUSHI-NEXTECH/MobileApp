@@ -99,7 +99,8 @@ class _OrdersPageState extends State<OrdersPage> {
 
                             ],
                           ),
-                          Visibility(
+                          Expanded(
+                          child : Visibility(
                             visible: expandedIndex == index, // Affiche le texte uniquement lorsque l'élément est agrandi
                             child: ElevatedButton.icon(
                               style: ButtonStyle(
@@ -118,6 +119,7 @@ class _OrdersPageState extends State<OrdersPage> {
                               ),
                               icon: const Icon(Icons.check),
                             ),
+                           ),
                           ),
                         ],
                       ),
