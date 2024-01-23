@@ -48,21 +48,46 @@ class _OrdersPageState extends State<OrdersPage> {
           backgroundColor: Colors.black,
           automaticallyImplyLeading: false, // Supprime le bouton pour revenir en arrière
           toolbarHeight: 40,
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-
-              Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
-
-              Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
-
-              Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
-
-              Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
-
-              Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // cinquième colonne
-            ],
-          ),
+              Flexible(
+                flex: 10, // 13% de l'espace
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
+                )
+              ),
+              Flexible(
+                  flex: 10, // 13% de l'espace
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
+                  )
+              ),
+              Flexible(
+                  flex: 30, // 38% de l'espace
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                  )
+              ),
+              Flexible(
+                  flex: 15, // 18% de l'espace
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
+                  )
+              ),
+              Flexible(
+                flex: 15, // 18% de l'espace
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                )
+              )
+            ]
+          )
         ),
 
         body: Padding(
@@ -94,18 +119,45 @@ class _OrdersPageState extends State<OrdersPage> {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('N°${order.idOrder}',style: const TextStyle(fontFamily: 'Comfortaa')), // Première colonne (Id Order)
+                              Flexible(
+                                flex: 10, // 20% de l'espace
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text('N°${order.idOrder}', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 10, // 30% de l'espace
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(order.time ?? 'Inconnu', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 30, // 50% de l'espace
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text('Id de la commande : ${order.idOrder}', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                ),
+                              ),
 
-                              Text(order.time ?? 'Inconnu', style: const TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne (Heure)
+                              Flexible(
+                                  flex: 15, // 50% de l'espace
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text('Jean-michel DESBOIS', style: const TextStyle(fontFamily: 'Comfortaa'))
+                                  )
+                              ),
 
-                              Text('détails de la commande : ${order.idOrder}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
-
-                              Text('Id préparateur : ${order.idPicker}',style: const TextStyle(fontFamily: 'Comfortaa')), // Troisième colonne (Id Order)
-                              OrderStateContainer(orderState: order.orderState)
-
-                            ],
+                              Flexible(
+                                flex: 15, // 50% de l'espace
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: OrderStateContainer(orderState: order.orderState)
+                                )
+                              )
+                            ]
                           ),
                           Expanded(
                           child : Visibility(
