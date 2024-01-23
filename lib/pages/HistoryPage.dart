@@ -5,14 +5,14 @@ import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
 import 'package:dev/pages/DetailOrderPage.dart';
 
-class OrdersPage extends StatefulWidget {
-  const OrdersPage({Key? key}) : super(key: key);
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<OrdersPage> createState() => _OrdersPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _OrdersPageState extends State<OrdersPage> {
+class _HistoryPageState extends State<HistoryPage> {
   String currentOrderState = "old";
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
   // Instancie la classe Orders
