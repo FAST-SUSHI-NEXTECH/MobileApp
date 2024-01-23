@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dev/conf.dart';
 import 'package:dev/pages/DetailCommandPage.dart';
 import 'package:flutter/material.dart';
@@ -98,28 +96,23 @@ class _LoginPageState extends State<LoginPage> {
       print(nom);
       print(prenom);
       print(permission);
-      if (permission == 2) {
-        autorise = true;
-      } else {
-        const Text("Vous avez pas les permissions",
-            style: TextStyle(fontSize: 20));
-      }
     }
   }
   void _handleLogin() async {
     await postData(); // Attend la fin de la requête postData
-
-    if (autorise) {
+    await getData();
+    if (permission == 2) {
       // La requête postData est terminée et autorisée, maintenant effectuez getData
-      await getData(); // Attend la fin de la requête getData
 
       // Naviguez vers la page suivante uniquement si la requête getData est terminée avec succès
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailCommandPage(),
+          builder: (context) => const DetailCommandPage(),
         ),
       );
+    } else {
+      print("Vous avez pas les permissions");
     }
   }
 

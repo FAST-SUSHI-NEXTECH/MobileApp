@@ -185,40 +185,9 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
               ),
             ),
           ),
-          Row(
-            children: [
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  alignment: AlignmentDirectional.bottomStart,
-                  margin: const EdgeInsets.only(left: 100, bottom: 40),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (_, __, ___) =>
-                                  const CommandsPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(200, 75),
-                        shape: const StadiumBorder(),
-                        backgroundColor: Colors.black
-                    ),
-                    child: const Text("Revenir",
-                      style: TextStyle(fontFamily: 'Comfortaa',
-                                        fontSize: 20
-                      )
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 675),
               Container(
-                alignment: AlignmentDirectional.bottomEnd,
-                margin: const EdgeInsets.only(right: 50, bottom: 40),
+                alignment: AlignmentDirectional.bottomCenter,
+                margin: const EdgeInsets.only(bottom: 40),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -234,11 +203,9 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                   child: const Text("Terminer",style: TextStyle(fontFamily: 'Comfortaa',fontSize: 20)),
                 ),
               ),
-            ],
-          ),
         ],
       ),
-      // bottomNavigationBar: const CustomNavBarWidget(),
+      bottomNavigationBar: const CustomNavBarWidget(),
     );
   }
 }
