@@ -12,6 +12,7 @@ class OrdersPage extends StatefulWidget {
 }
 
 class _OrdersPageState extends State<OrdersPage> {
+  String currentOrderState = "new";
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
   // Instancie la classe Orders
   Orders orders = Orders();
@@ -26,7 +27,7 @@ class _OrdersPageState extends State<OrdersPage> {
 
   // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste Order
   Future<void> fetchOrders() async {
-    List<Order> fetchedOrders = await orders.fetchOrders();
+    List<Order> fetchedOrders = await orders.fetchOrders(currentOrderState);
     setState(() {
       ordersList = fetchedOrders;
     });
