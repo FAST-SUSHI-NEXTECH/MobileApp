@@ -1,8 +1,8 @@
+import 'package:dev/widgets/order_detail_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dev/classes/OrderClass.dart';
 import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
-import 'package:dev/pages/DetailOrderPage.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -160,14 +160,27 @@ class _OrdersPageState extends State<OrdersPage> {
                             ]
                           ),
                           Expanded(
-                          child : Visibility(
-                            visible: expandedIndex == index, // Affiche le texte uniquement lorsque l'élément est agrandi
-                            child: OrderStateButton(
-                              orderState: order.orderState,
-                              order: order,
-                              onUpdateOrderState: updateOrderState,
+                            child: Visibility(
+                              visible: expandedIndex == index, // Affiche le texte uniquement lorsque l'élément est agrandi
+                              child: Center( // Centre les enfants horizontalement et verticalement
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center, // Centre les enfants horizontalement dans la Row
+                                  children: [
+                                    OrderStateButton(
+                                      orderState: order.orderState,
+                                      order: order,
+                                      onUpdateOrderState: updateOrderState,
+                                      onUpdateOrderPicker: updateOrderPicker,
+                                    ),
+                                    OrderDetailButton(
+                                      orderState: order.orderState,
+                                      order: order,
+                                      onUpdateOrderState: updateOrderState,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                           ),
                           ),
                         ],
                       ),
