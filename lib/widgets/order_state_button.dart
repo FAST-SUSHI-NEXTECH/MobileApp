@@ -6,12 +6,14 @@ class OrderStateButton extends StatelessWidget {
   final int? orderState;
   final Order order;
   final Function(int?, int?) onUpdateOrderState;
+  final Function(int?, int?) onUpdateOrderPicker;
 
   const OrderStateButton({
     Key? key,
     this.orderState,
     required this.order,
-    required this.onUpdateOrderState
+    required this.onUpdateOrderState,
+    required this.onUpdateOrderPicker
   }) : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class OrderStateButton extends StatelessWidget {
       case 1:
         return
           () async {
+            await onUpdateOrderPicker(order.idPicker, order.idOrder);
             // Met à jour l'état de la commande à 2 (En cours de préparation)
             await onUpdateOrderState(2, order.idOrder);
           };
