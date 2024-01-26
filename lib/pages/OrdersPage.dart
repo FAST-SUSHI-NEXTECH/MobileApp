@@ -56,35 +56,35 @@ class _OrdersPageState extends State<OrdersPage> {
                 flex: 10, // 13% de l'espace
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
+                  child: const Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
                 )
               ),
               Flexible(
                   flex: 10, // 13% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
+                    child: const Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
                   )
               ),
               Flexible(
                   flex: 30, // 38% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                    child: const Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
                   )
               ),
               Flexible(
                   flex: 15, // 18% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
+                    child: const Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
                   )
               ),
               Flexible(
                 flex: 15, // 18% de l'espace
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                  child: const Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
                 )
               )
             ]
