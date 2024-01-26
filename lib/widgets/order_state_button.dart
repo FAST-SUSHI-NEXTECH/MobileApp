@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../classes/OrderClass.dart';
-import '../pages/DetailOrderPage.dart';
 
 class OrderStateButton extends StatelessWidget {
   final int? orderState;
@@ -55,12 +54,6 @@ class OrderStateButton extends StatelessWidget {
       case 1:
         return
           () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailOrderPage(orderId: order.idOrder)
-              ),
-            );
             // Met à jour l'état de la commande à 2 (En cours de préparation)
             await onUpdateOrderState(2, order.idOrder);
           };
