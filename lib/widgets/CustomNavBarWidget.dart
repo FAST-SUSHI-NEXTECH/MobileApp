@@ -1,3 +1,5 @@
+import 'package:dev/conf.dart';
+import 'package:dev/pages/LoginPage.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/CommandsPage.dart';
@@ -10,14 +12,23 @@ class CustomNavBarWidget extends StatefulWidget {
 }
 
 class _CustomNavBarWidgetState extends State<CustomNavBarWidget> {
+  void BackListCommand() {
+    Navigator.push(context,
+        PageRouteBuilder(pageBuilder: (_, __, ___) => const CommandsPage()));
+  }
 
-  void BackListCommand(){
-    Navigator.push(
-        context,
-        PageRouteBuilder(
-            pageBuilder: (_, __, ___) =>
-            const CommandsPage()));
+  void Logout() {
+    Conf.token = null;
+    Navigator.push(context,
+        PageRouteBuilder(pageBuilder: (_, __, ___) => const LoginPage()));
+  }
 
+  void HistoryPage() {
+    // Navigator.push(
+    //     context,
+    //     PageRouteBuilder(
+    //         pageBuilder: (_, __, ___) =>
+    //         const HistoryPage()));
   }
 
   @override
@@ -44,13 +55,17 @@ class _CustomNavBarWidgetState extends State<CustomNavBarWidget> {
             children: [
               IconButton(
                 icon: const Icon(Icons.list, color: Colors.white, size: 70),
-                onPressed: () {BackListCommand();},
+                onPressed: () {
+                  BackListCommand();
+                },
                 padding: EdgeInsets.only(bottom: 40),
               ),
               SizedBox(width: 40),
               IconButton(
                 icon: const Icon(Icons.history, color: Colors.white, size: 70),
-                onPressed: () {},
+                onPressed: () {
+                  HistoryPage();
+                },
                 padding: EdgeInsets.only(bottom: 40),
               ),
             ],
@@ -64,8 +79,10 @@ class _CustomNavBarWidgetState extends State<CustomNavBarWidget> {
             // Légèrement décalé vers le haut
             child: IconButton(
               icon: const Icon(Icons.logout, color: Colors.white, size: 70),
-              onPressed: () {},
-              padding: EdgeInsets.only(bottom: 30,right: 40),
+              onPressed: () {
+                Logout();
+              },
+              padding: EdgeInsets.only(bottom: 30, right: 40),
             ),
           ),
           // Add spacing between the button and the edge of the bar

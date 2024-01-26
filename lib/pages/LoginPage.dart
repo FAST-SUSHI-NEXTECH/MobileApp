@@ -1,8 +1,7 @@
 import 'package:dev/conf.dart';
-import 'package:dev/pages/DetailCommandPage.dart';
+import 'package:dev/pages/DashboardPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:dev/conf.dart';
@@ -20,14 +19,16 @@ class LoginPage extends StatefulWidget {
 
   @override
   State<LoginPage> createState() => _LoginPageState();
+  static String? prenom;
+  static String? nom;
+  static String? username;
 }
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String _popupMessage = '';
-  String? prenom;
-  String? nom;
+
   int? permission;
   bool autorise = false;
 
@@ -66,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> getData() async {
     final response = await http.get(
-      Uri.parse('http://185.255.112.208:3000/user/info'),
+      Uri.parse('${Conf.ipApi}/user/info'),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ${Conf.token}',
@@ -78,14 +79,19 @@ class _LoginPageState extends State<LoginPage> {
     if(response.statusCode == 200) {
       for (var singleUser in ResponseBody) {
         if(singleUser['last_name'] != null){
-          nom = singleUser['last_name'].toString();
+          LoginPage.nom = singleUser['last_name'].toString();
         } else {
-          nom = null;
+          LoginPage.nom = null;
         }
         if(singleUser['first_name'] != null){
-          prenom = singleUser['first_name'].toString();
+          LoginPage.prenom = singleUser['first_name'].toString();
         } else {
-          prenom = null;
+          LoginPage.prenom = null;
+        }
+        if(singleUser['usernamer'] != null){
+          LoginPage.username = singleUser['username'].toString();
+        } else {
+          LoginPage.username = null;
         }
         if(singleUser['permission'] != null){
           permission = int.parse(singleUser['permission'].toString());
@@ -93,24 +99,30 @@ class _LoginPageState extends State<LoginPage> {
           permission = null;
         }
     }
-      print(nom);
-      print(prenom);
+      print(LoginPage.nom);
+      print(LoginPage.prenom);
       print(permission);
     }
   }
+
+
+
+
+
   void _handleLogin() async {
     await postData(); // Attend la fin de la requête postData
     await getData();
     if (permission == 2) {
       // La requête postData est terminée et autorisée, maintenant effectuez getData
-
       // Naviguez vers la page suivante uniquement si la requête getData est terminée avec succès
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const DetailCommandPage(),
+          builder: (context) => DashboardPage(),
         ),
+
       );
+      print('${Conf.token}');
     } else {
       print("Vous avez pas les permissions");
     }
@@ -251,9 +263,9 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: EdgeInsets.only(left: 100),
               padding: const EdgeInsets.only(right: 0),
-              child: const Text(
+              child: Text(
                 "FastSushi",
-                style: TextStyle(fontFamily: 'Comfortaa', fontSize: 30),
+                style: TextStyle(fontFamily: '${Conf.police}', fontSize: 30),
               ),
             ),
             Image.asset(
@@ -328,6 +340,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         _handleLogin();
+
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),

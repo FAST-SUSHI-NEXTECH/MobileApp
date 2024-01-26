@@ -1,6 +1,10 @@
-import 'package:dev/pages/CommandsPage.dart';
+
+import 'package:dev/pages/OrdersPage.dart';
 import 'package:dev/widgets/CustomNavBarWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:dev/classes/OrderClass.dart';
+
+import '../conf.dart';
 
 class DetailCommandPage extends StatefulWidget {
   const DetailCommandPage({super.key});
@@ -10,6 +14,9 @@ class DetailCommandPage extends StatefulWidget {
 }
 
 class _DetailCommandePageState extends State<DetailCommandPage> {
+  late final Order order;
+  late final Function(int?, int?) updateOrderState;
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
@@ -22,7 +29,7 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
     Padding paddedText(String text) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 2), // Ajustez la valeur selon vos besoins
-        child: Text(text,style: const TextStyle(fontFamily: 'Comfortaa')),
+        child: Text(text,style:  TextStyle(fontFamily: '${Conf.police}')),
       );
     }
 
@@ -30,11 +37,11 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
       appBar: AppBar(
         title: Wrap(
           spacing: spacing,
-          children: const [
-            Text("Clovis Delacroix",style: TextStyle(fontFamily: 'Comfortaa')),
-            Text("N°6", style: TextStyle(fontFamily: 'Comfortaa')),
-            Text("15h56",style: TextStyle(fontFamily: 'Comfortaa')),
-            Text("50,00 €",style: TextStyle(fontFamily: 'Comfortaa')),
+          children:  [
+            Text("Clovis Delacroix",style: TextStyle(fontFamily: '${Conf.police}')),
+            Text("N°6", style: TextStyle(fontFamily: '${Conf.police}')),
+            Text("15h56",style: TextStyle(fontFamily: '${Conf.police}')),
+            Text("50,00 €",style: TextStyle(fontFamily: '${Conf.police}')),
           ],
         ),
         backgroundColor: Colors.black,
@@ -62,8 +69,8 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(padding: EdgeInsets.only(bottom: 10),
-                          child: Text("Entree",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                         Padding(padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Entree",style: TextStyle(fontSize: 20,fontFamily: '${Conf.police}',decoration: TextDecoration.underline))
                         ),
                         paddedText("Test 1"),
                         paddedText("Test 2"),
@@ -88,8 +95,8 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(padding: EdgeInsets.only(bottom: 10),
-                            child: Text("Plat",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                         Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Plat",style: TextStyle(fontSize: 20,fontFamily: '${Conf.police}',decoration: TextDecoration.underline))
                         ),
                         paddedText("Test 1"),
                         paddedText("Test 2"),
@@ -114,8 +121,8 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(padding: EdgeInsets.only(bottom: 10),
-                            child: Text("Dessert",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                         Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Dessert",style: TextStyle(fontSize: 20,fontFamily: '${Conf.police}',decoration: TextDecoration.underline))
                         ),
                         paddedText("Test 1"),
                         paddedText("Test 2"),
@@ -140,8 +147,8 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(padding: EdgeInsets.only(bottom: 10),
-                            child: Text("Sushi préfaits",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                         Padding(padding: EdgeInsets.only(bottom: 10),
+                            child: Text("Sushi préfaits",style: TextStyle(fontSize: 20,fontFamily: '${Conf.police}',decoration: TextDecoration.underline))
                         ),
                         paddedText("Test 1"),
                         paddedText("Test 2"),
@@ -165,8 +172,8 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     padding: const EdgeInsets.only(left: 10, top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [const Padding(padding: EdgeInsets.only(bottom: 10),
-                          child: Text("Sushi custom",style: TextStyle(fontSize: 20,fontFamily: 'Comfortaa',decoration: TextDecoration.underline))
+                      children: [ Padding(padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Sushi custom",style: TextStyle(fontSize: 20,fontFamily: '${Conf.police}',decoration: TextDecoration.underline))
                       ),
                         paddedText("Test 1"),
                         paddedText("Test 2"),
@@ -193,14 +200,15 @@ class _DetailCommandePageState extends State<DetailCommandPage> {
                     Navigator.push(
                         context,
                         PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => const CommandsPage()));
+                            pageBuilder: (_, __, ___) => const OrdersPage()));
+                    updateOrderState(3,order.idOrder);
                   },
                   style: ElevatedButton.styleFrom(fixedSize: const Size(200, 75),
                          shape: const StadiumBorder(),
                          backgroundColor: Colors.black
                   ),
 
-                  child: const Text("Terminer",style: TextStyle(fontFamily: 'Comfortaa',fontSize: 20)),
+                  child: Text("Terminer",style: TextStyle(fontFamily: '${Conf.police}',fontSize: 20)),
                 ),
               ),
         ],

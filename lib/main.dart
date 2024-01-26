@@ -1,3 +1,4 @@
+import 'package:dev/pages/DashboardPage.dart';
 import 'package:dev/pages/DetailCommandPage.dart';
 import 'package:dev/pages/LoginPage.dart';
 import 'package:dev/widgets/CustomNavBarWidget.dart';
