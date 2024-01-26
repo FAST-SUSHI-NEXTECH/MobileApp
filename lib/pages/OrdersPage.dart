@@ -41,6 +41,13 @@ class _OrdersPageState extends State<OrdersPage> {
     fetchOrders();
   }
 
+  // Méthode pour appeler updateOrderPicker et mettre à jour l'état de la commande
+  Future<void> updateOrderPicker(int? pickerId, int? orderId) async {
+    await orders.updateOrderPicker(pickerId, orderId);
+    // Recharger les commandes pour mettre à jour l'interface utilisateur
+    fetchOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
