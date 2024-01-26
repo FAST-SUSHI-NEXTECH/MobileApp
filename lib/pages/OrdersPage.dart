@@ -139,7 +139,18 @@ class _OrdersPageState extends State<OrdersPage> {
                                 flex: 30, // 50% de l'espace
                                 child: Container(
                                   alignment: Alignment.center,
-                                  child: Text('Id de la commande : ${order.idOrder}', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                  child: FutureBuilder<String>(
+                                    future: Orders().fetchOrdersContent(order.idOrder),
+                                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                      if (snapshot.hasError) {
+                                        return const Text('Erreur', style: TextStyle(fontFamily: 'Comfortaa'));
+                                      } else if (snapshot.hasData) {
+                                        return Text(snapshot.data!, style: const TextStyle(fontFamily: 'Comfortaa'));
+                                      } else {
+                                        return const Text('Aucun détail', style: TextStyle(fontFamily: 'Comfortaa'));
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
 
