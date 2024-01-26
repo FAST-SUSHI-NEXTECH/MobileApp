@@ -1,6 +1,7 @@
 import 'package:dev/widgets/order_detail_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dev/classes/OrderClass.dart';
+import 'package:dev/classes/PickerClass.dart';
 import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
 
@@ -146,7 +147,16 @@ class _OrdersPageState extends State<OrdersPage> {
                                   flex: 15, // 50% de l'espace
                                   child: Container(
                                       alignment: Alignment.center,
-                                      child: Text('Jean-michel DESBOIS', style: const TextStyle(fontFamily: 'Comfortaa'))
+                                      child: FutureBuilder<String>(
+                                        future: Pickers().fetchPickerUsername(order.idPicker),
+                                        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.hasError) {
+                                            return const Text('Erreur', style: TextStyle(fontFamily: 'Comfortaa'));
+                                          } else {
+                                            return Text('${snapshot.data}', style: const TextStyle(fontFamily: 'Comfortaa'));
+                                          }
+                                        },
+                                      ),
                                   )
                               ),
 
