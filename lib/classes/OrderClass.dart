@@ -108,7 +108,26 @@ class Orders {
       },
       body: json.encode(body),
     );
+    return response;
+  }
 
+  Future<http.Response> updateOrderPicker(int? pickerId, int? orderId) async {
+    final url = Uri.parse("$ipApi/order/picker/update");
+
+    Map<String, dynamic> body = {
+      'id_picker': pickerId,
+      'id_order': orderId
+    };
+
+    final response = await http.put(
+      url,
+      headers: {
+        'Authorization': 'Bearer $tokenApi',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: json.encode(body),
+    );
     return response;
   }
 
