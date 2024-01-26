@@ -9,8 +9,9 @@ class Order {
   final String? time;
   final int? idPicker;
   final int? orderState;
+  final String? orderContent;
 
-  Order({this.idOrder, this.time, this.idPicker, this.orderState});
+  Order({this.idOrder, this.time, this.idPicker, this.orderState, this.orderContent});
 }
 
 class Orders {
@@ -109,5 +110,65 @@ class Orders {
     );
 
     return response;
+  }
+
+  Future<String> fetchOrdersContent(int? idOrder) async {
+    try {
+      var response = await http.post(
+          Uri.parse("$ipApi/order/details"),
+          headers: <String, String>{
+            'accept': 'application/json',
+            'Authorization': 'Bearer $tokenApi',
+            'Content-Type': 'application/json'
+          },
+          body: jsonEncode(<String, int?>{
+            'id_order': idOrder
+          })
+      );
+
+      // Convertit la réponse en objet JSON
+      var data = json.decode(response.body);
+
+      String formatString(String originalString) {
+        if (originalString.length > 50) {
+          return '${originalString.substring(0, 45)}...';
+        } else {
+          return originalString;
+        }
+      }
+
+      // Assurez-vous que data est une liste et prenez le premier élément
+      if (data is List && data.isNotEmpty) {
+        // Initialiser une chaîne pour stocker tous les noms de produits
+        String allProducts = '';
+
+        // Itérer sur chaque objet dans la liste
+        for (var item in data) {
+          // Ajouter le nom du produit à la chaîne, suivi d'une virgule et d'un espace
+          allProducts += '${item['product_name']}, ';
+        }
+
+        allProducts = formatString(allProducts.substring(0, allProducts.length - 2));
+
+        if (kDebugMode) {
+          print(allProducts);
+        }
+        return allProducts;
+
+      } else if (data.isEmpty) {
+        return '';
+
+      } else {
+        if (kDebugMode) {
+          print('Erreur: ${response.statusCode}');
+        }
+        return  'Erreur : Impossible de récupérer la commande';
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Erreur: $e');
+      }
+      return  'Erreur : Exception lors de la requête';
+    }
   }
 }
