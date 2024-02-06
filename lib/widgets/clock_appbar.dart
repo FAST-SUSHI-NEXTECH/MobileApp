@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../conf.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:dev/pages/LoginPage.dart';
 
 class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -15,10 +16,29 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
   ClockAppBarState createState() => ClockAppBarState(); // Rendre cette ligne publique
 }
 
+class ClockAppBarState extends State<ClockAppBar> {
+  late String _formattedTime;
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
+    _formattedTime = _formatDateTime(tz.TZDateTime.now(tz.local));
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _getTime());
   }
+
+  void _getTime() {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    final String formattedDateTime = _formatDateTime(now);
+    setState(() {
+      _formattedTime = formattedDateTime;
+    });
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -52,8 +72,25 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
               ]
             )
           ),
+          Flexible(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.centerRight,
+              margin: const EdgeInsets.only(right: 50),
+              child: Text(
+                _formattedTime,
+                style: const TextStyle(fontSize: 30),
+              )
+            )
+          )
         ]
       )
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }
