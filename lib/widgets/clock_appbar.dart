@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../conf.dart';
+import 'package:dev/pages/LoginPage.dart';
 
 class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -27,6 +28,14 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Flexible(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(left: 50),
+              child: Text("${LoginPage.username}", style: TextStyle(fontFamily: Conf.police, fontSize: 25),)
+            )
+          ),
           Flexible(
             flex: 2,
             child: Row(
