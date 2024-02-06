@@ -202,8 +202,7 @@ class _OrdersPageState extends State<OrdersPage> {
                                     ),
                                     OrderDetailButton(
                                       orderState: order.orderState,
-                                      order: order,
-                                      onUpdateOrderState: updateOrderState,
+                                      order: order
                                     ),
                                   ],
                                 ),
