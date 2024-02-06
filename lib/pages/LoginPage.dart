@@ -47,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
         'password': passwordController.text,
       }),
     );
-    print(response.statusCode);
     Map<String,dynamic> ResponseBody = json.decode(response.body);
     // print(response.statusCode);
     if (response.statusCode == 200) {
@@ -75,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
     );
     // print(response.body);
     var ResponseBody = json.decode(response.body);
-    print(response.statusCode);
     if(response.statusCode == 200) {
       for (var singleUser in ResponseBody) {
         if(singleUser['last_name'] != null){
@@ -99,9 +97,6 @@ class _LoginPageState extends State<LoginPage> {
           permission = null;
         }
     }
-      print(LoginPage.nom);
-      print(LoginPage.prenom);
-      print(permission);
     }
   }
 
@@ -122,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
 
       );
-      print('${Conf.token}');
+      // print('${Conf.token}');
     } else {
       print("Vous avez pas les permissions");
     }

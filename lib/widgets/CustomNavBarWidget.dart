@@ -1,8 +1,8 @@
 import 'package:dev/conf.dart';
 import 'package:dev/pages/LoginPage.dart';
+import 'package:dev/pages/OrdersPage.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/CommandsPage.dart';
 
 class CustomNavBarWidget extends StatefulWidget {
   const CustomNavBarWidget({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class CustomNavBarWidget extends StatefulWidget {
 class _CustomNavBarWidgetState extends State<CustomNavBarWidget> {
   void BackListCommand() {
     Navigator.push(context,
-        PageRouteBuilder(pageBuilder: (_, __, ___) => const CommandsPage()));
+        PageRouteBuilder(pageBuilder: (_, __, ___) => const OrdersPage()));
   }
 
   void Logout() {
