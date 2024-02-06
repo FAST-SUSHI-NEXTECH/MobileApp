@@ -18,9 +18,9 @@ class Orders {
   Future<List<Order>> fetchOrders(String currentOrderState) async {
     try {
       final response = await http.get(
-        Uri.parse("$ipApi/order"),
+        Uri.parse("${Conf.ipApi}/order"),
         headers: {
-          'Authorization': 'Bearer $tokenApi',
+          'Authorization': 'Bearer ${Conf.token}',
           'Accept': 'application/json',
         },
       );
@@ -92,7 +92,7 @@ class Orders {
   }
 
   Future<http.Response> updateOrderState(int? orderState, int? orderId) async {
-    final url = Uri.parse("$ipApi/order/state/update");
+    final url = Uri.parse("${Conf.ipApi}/order/state/update");
 
     Map<String, dynamic> body = {
       'order_state': orderState,
@@ -102,7 +102,7 @@ class Orders {
     final response = await http.put(
       url,
       headers: {
-        'Authorization': 'Bearer $tokenApi',
+        'Authorization': 'Bearer ${Conf.token}',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -112,7 +112,7 @@ class Orders {
   }
 
   Future<http.Response> updateOrderPicker(int? pickerId, int? orderId) async {
-    final url = Uri.parse("$ipApi/order/picker/update");
+    final url = Uri.parse("${Conf.ipApi}/order/picker/update");
 
     Map<String, dynamic> body = {
       'id_picker': pickerId,
@@ -122,7 +122,7 @@ class Orders {
     final response = await http.put(
       url,
       headers: {
-        'Authorization': 'Bearer $tokenApi',
+        'Authorization': 'Bearer ${Conf.token}',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -134,10 +134,10 @@ class Orders {
   Future<String> fetchOrdersContent(int? idOrder) async {
     try {
       var response = await http.post(
-          Uri.parse("$ipApi/order/details"),
+          Uri.parse("${Conf.ipApi}/order/details"),
           headers: <String, String>{
             'accept': 'application/json',
-            'Authorization': 'Bearer $tokenApi',
+            'Authorization': 'Bearer ${Conf.token}',
             'Content-Type': 'application/json'
           },
           body: jsonEncode(<String, int?>{
