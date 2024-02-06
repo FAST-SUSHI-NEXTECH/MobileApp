@@ -1,6 +1,9 @@
+import 'package:dev/pages/LoginPage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../classes/OrderClass.dart';
+import '../classes/PickerClass.dart';
 
 class OrderStateButton extends StatelessWidget {
   final int? orderState;
@@ -54,20 +57,22 @@ class OrderStateButton extends StatelessWidget {
   Future<void> Function()? _getButtonOnPressed(BuildContext context, int? state) {
     switch (state) {
       case 1:
-        return
-          () async {
-            await onUpdateOrderPicker(order.idPicker, order.idOrder);
-            // Met à jour l'état de la commande à 2 (En cours de préparation)
-            await onUpdateOrderState(2, order.idOrder);
-          };
+        return () async {
+          int? idPicker = await Pickers().fetchPickerId('${LoginPage.username}');
+          if (kDebugMode) {
+            print(idPicker);
+          }
+          await onUpdateOrderPicker(idPicker, order.idOrder);
+          // Met à jour l'état de la commande à 2 (En cours de préparation)
+          await onUpdateOrderState(2, order.idOrder);
+        };
       case 2:
         return null;
       case 3:
-        return
-          () async {
-            // Met à jour l'état de la commande à 1 (Prendre en charge la commande)
-            await onUpdateOrderState(1, order.idOrder);
-          };
+        return () async {
+          // Met à jour l'état de la commande à 1 (Prendre en charge la commande)
+          await onUpdateOrderState(1, order.idOrder);
+        };
       default:
         return null;
     }
