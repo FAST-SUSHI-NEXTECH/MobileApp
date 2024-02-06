@@ -5,13 +5,11 @@ import '../pages/DetailOrderPage.dart';
 class OrderDetailButton extends StatelessWidget {
   final int? orderState;
   final Order order;
-  final Function(int?, int?) onUpdateOrderState;
 
   const OrderDetailButton({
     Key? key,
     this.orderState,
     required this.order,
-    required this.onUpdateOrderState
   }) : super(key: key);
 
   @override
