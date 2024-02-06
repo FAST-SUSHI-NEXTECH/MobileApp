@@ -59,4 +59,45 @@ class Pickers {
       return  'Erreur : Exception lors de la requête';
     }
   }
+
+  Future<int?> fetchPickerId(String? username) async {
+
+    try {
+      var response = await http.post(
+          Uri.parse("${Conf.ipApi}/user/picker/username"),
+          headers: <String, String>{
+            'Authorization': 'Bearer ${Conf.token}',
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: jsonEncode(<String, String?>{
+            'username': username
+          })
+      );
+
+      // Convertit la réponse en objet JSON
+      var data = json.decode(response.body);
+
+      // Verification que data est une liste et prend ensuite le premier élément
+      if (data is List && (data.isNotEmpty)) {
+        var firstItem = data[0];
+        int? idPicker = firstItem['id_picker']; // Accès correct à la propriété 'id_picker'
+        if (kDebugMode) {
+          print(idPicker);
+        }
+        return idPicker;
+
+      } else {
+        if (kDebugMode) {
+          print('Erreur: ${response.statusCode}');
+        }
+        return  0;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Erreur: $e');
+      }
+      return  0;
+    }
+  }
 }
