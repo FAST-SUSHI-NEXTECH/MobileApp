@@ -20,9 +20,9 @@ class Pickers {
 
     try {
       var response = await http.post(
-        Uri.parse("$ipApi/user/picker/id"),
+        Uri.parse("${Conf.ipApi}/user/picker/id"),
         headers: <String, String>{
-          'Authorization': 'Bearer $tokenApi',
+          'Authorization': 'Bearer ${Conf.token}',
           'accept': 'application/json',
           'Content-Type': 'application/json'
         },
