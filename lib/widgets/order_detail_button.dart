@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/OrderClass.dart';
-import '../pages/DetailOrderPage.dart';
+import '../pages/detail_order_page.dart';
 
 class OrderDetailButton extends StatelessWidget {
   final int? orderState;

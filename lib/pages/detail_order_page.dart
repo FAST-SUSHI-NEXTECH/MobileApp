@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dev/widgets/clock_appbar.dart';
 
 class DetailOrderPage extends StatelessWidget {
   final int? orderId;
@@ -8,9 +9,7 @@ class DetailOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Détails de la Commande - ID: $orderId'),
-      ),
+      appBar: const ClockAppBar(),
       body: Center(
         child: Text('Affichage des détails pour la commande ID: $orderId'),
       ),
