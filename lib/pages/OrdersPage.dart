@@ -155,12 +155,17 @@ class _OrdersPageState extends State<OrdersPage> {
                                 flex: 30, // 50% de l'espace
                                 child: Container(
                                   alignment: Alignment.center,
-                                  child: FutureBuilder<String>(
-                                    future: Orders().fetchOrdersContent(order.idOrder),
-                                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                  child: FutureBuilder<List<Order>>(
+                                    future: orders.fetchOrdersContent(order.idOrder),
+                                    builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
                                       if (snapshot.hasError) {
                                         return Text('Erreur', style: TextStyle(fontFamily: Conf.police));
                                       } else if (snapshot.hasData) {
+                                        // Traitez et affichez les données ici
+                                        List<Order> ordersContent = snapshot.data!;
+                                        String displayText = ordersContent.map((o) {
+                                          return '${o.orderContentAppetizer ?? ''} ${o.orderContentPlate ?? ''} ${o.orderContentDessert ?? ''}';
+                                        }).join(", ");
                                         displayText = formatString(displayText);
                                         return Text(displayText, style: TextStyle(fontFamily: Conf.police));
                                       } else {
