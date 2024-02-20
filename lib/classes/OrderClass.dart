@@ -18,7 +18,7 @@ class Orders {
   Future<List<Order>> fetchOrders(String currentOrderState) async {
     try {
       final response = await http.get(
-        Uri.parse("${Conf.ipApi}/order"),
+        Uri.parse("${Conf.ipApi}/order/all"),
         headers: {
           'Authorization': 'Bearer ${Conf.token}',
           'Accept': 'application/json',
