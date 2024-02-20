@@ -49,6 +49,14 @@ class _OrdersPageState extends State<OrdersPage> {
     fetchOrders();
   }
 
+  String formatString(String originalString) {
+    if (originalString.length > 50) {
+      return '${originalString.substring(0, 45)}...';
+    } else {
+      return originalString;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -153,7 +161,8 @@ class _OrdersPageState extends State<OrdersPage> {
                                       if (snapshot.hasError) {
                                         return Text('Erreur', style: TextStyle(fontFamily: Conf.police));
                                       } else if (snapshot.hasData) {
-                                        return Text(snapshot.data!, style: const TextStyle(fontFamily: 'Comfortaa'));
+                                        displayText = formatString(displayText);
+                                        return Text(displayText, style: TextStyle(fontFamily: Conf.police));
                                       } else {
                                         return const CircularProgressIndicator();
                                       }
