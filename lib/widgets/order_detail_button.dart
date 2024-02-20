@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/OrderClass.dart';
+import '../conf.dart';
 import '../pages/detail_order_page.dart';
 
 class OrderDetailButton extends StatelessWidget {
@@ -7,10 +8,10 @@ class OrderDetailButton extends StatelessWidget {
   final Order order;
 
   const OrderDetailButton({
-    Key? key,
+    super.key,
     this.orderState,
     required this.order,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,8 @@ class OrderDetailButton extends StatelessWidget {
         ),
         onPressed: _getButtonOnPressed(context, orderState),
         label: Text(_getButtonLabel(orderState),
-          style: const TextStyle(
-              fontFamily: 'Comfortaa',
+          style: TextStyle(
+              fontFamily: Conf.police,
               fontSize: 17
           ),
         ),
