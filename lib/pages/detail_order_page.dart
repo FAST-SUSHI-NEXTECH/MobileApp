@@ -30,6 +30,17 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   int _checklist = 0;
   int _orderlength = 1;
 
+  void _toggleSelection(String category, int index) {
+    setState(() {
+      if (_selectedIndexesByCategory[category]!.contains(index)) {
+        _selectedIndexesByCategory[category]!.remove(index);
+        _checklist--;
+      } else {
+        _selectedIndexesByCategory[category]!.add(index);
+        _checklist++;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +58,33 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
         body: Column(
             mainAxisSize: MainAxisSize.min, // Utilisez MainAxisSize.min pour que la colonne prenne juste l'espace nécessaire.
             children: [
+            Container(
+              height: 60.0,
+              width: 900,
+              alignment: Alignment.center,
+              child: Row( // Utilisation d'une Row pour disposer horizontalement les widgets
+                children: [
+                  Expanded( // Utilisation d'Expanded pour que le LinearProgressIndicator prenne tout l'espace disponible moins celui du texte
+                    child: LinearProgressIndicator(
+                      value: _checklist / _orderlength,
+                      backgroundColor: Colors.grey[350],
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        (_checklist / _orderlength) == 1 ? Colors.green : Colors.blue,
+                      ),
+                      minHeight: 12,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  Padding( // Ajout d'un peu d'espace entre le LinearProgressIndicator et le texte
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "${(_checklist / _orderlength * 100).toStringAsFixed(0)} %", // Affichage du pourcentage
+                        style: TextStyle(fontFamily: Conf.police, fontSize: 20)
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Center(
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -93,6 +131,10 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
             }
 
             List<Order> orders = [];
+            _orderlength = snapshot.data!.where((order) =>
+            order.orderContentAppetizer != null).toList().length + snapshot.data!.where((order) =>
+            order.orderContentPlate != null).toList().length + snapshot.data!.where((order) =>
+            order.orderContentDessert != null).toList().length ;
 
             // Filtrer les données en fonction de la catégorie si nécessaire
             if (category == 'Appetizers'){
@@ -110,7 +152,10 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
+                bool isSelected = _selectedIndexesByCategory[category]!.contains(index);
 
+                return InkWell(
+                    onTap: () => _toggleSelection(category, index),
                   child: Row(children: [
                     Container(
                       padding: const EdgeInsets.only(right: 20, left: 10),
