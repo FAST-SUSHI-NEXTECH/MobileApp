@@ -108,6 +108,33 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                 ],
               )
             ),
+              Container(
+                  height: 100.0,
+                  width: 900,
+                  alignment: Alignment.center,
+                  child:
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          (_checklist / _orderlength) == 1 ? Colors.blue : Colors.grey,
+                        )
+                    ),
+                    onPressed: () {
+                      if (_checklist / _orderlength == 1){
+                        //onUpdateOrderState(3, order.idOrder);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OrdersPage()
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Terminer la commande'),
+                  )
+              ),
+          ]
+      )
     );
   }
 
