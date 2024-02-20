@@ -1,5 +1,6 @@
 import 'package:dev/conf.dart';
 import 'package:dev/pages/DashboardPage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
     // print(passwordController.text);
 
     final response = await http.post(
-      Uri.parse('http://185.255.112.208:3000/login'),
+      Uri.parse('${Conf.ipApi}/login'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           LoginPage.prenom = null;
         }
-        if(singleUser['usernamer'] != null){
+        if(singleUser['username'] != null){
           LoginPage.username = singleUser['username'].toString();
         } else {
           LoginPage.username = null;
@@ -99,9 +100,6 @@ class _LoginPageState extends State<LoginPage> {
     }
     }
   }
-
-
-
 
 
   void _handleLogin() async {
@@ -117,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
 
       );
-      // print('${Conf.token}');
+      print('${Conf.token}');
     } else {
       print("Vous avez pas les permissions");
     }

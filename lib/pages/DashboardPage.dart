@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:dev/pages/HistoryPage.dart';
+import 'package:dev/pages/LoginPage.dart';
 import 'package:dev/pages/OrdersPage.dart';
 import 'package:dev/widgets/clock_appbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:dev/pages/LoginPage.dart';
-
+import 'package:http/http.dart' as http;
 import '../conf.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -15,7 +16,73 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _State extends State<DashboardPage> {
+  int? idPicker;
+  int? pickerTotalOrder;
+  Future<void> getIdPicker() async {
+    final response = await http.post(
+      Uri.parse('${Conf.ipApi}/user/picker/username'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${Conf.token}',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, String?>{
+        'username': LoginPage.username,
+      }),
+    );
+    var data = json.decode(response.body);
+    if (kDebugMode) {
+      print(response.statusCode);
+    }
+
+    if (response.statusCode == 200) {
+      if (data is List && (data.isNotEmpty)) {
+        var firstItem = data[0];
+        setState(() {
+          idPicker = firstItem['id_picker'];
+        });
+      }
+    }
+  }
+
+  Future<void> getPickerTotalOrder() async {
+    final response = await http.post(
+      Uri.parse('${Conf.ipApi}/order/picker/count'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${Conf.token}',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, int?>{
+        'id_picker': idPicker,
+      }),
+    );
+    var data = json.decode(response.body);
+    if (kDebugMode) {
+      print(response.statusCode);
+    }
+    print('Réponse du serveur : ${response.body}');
+    if (response.statusCode == 200) {
+      if (data is List && (data.isNotEmpty)) {
+        var firstItem = data[0];
+          pickerTotalOrder = firstItem['total_order'];
+
+      }
+    }
+  }
+
+
   @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    await getIdPicker();
+    await getPickerTotalOrder();
+    setState(() {}); // Met à jour le widget après avoir récupéré les données
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ClockAppBar(),
@@ -25,9 +92,9 @@ class _State extends State<DashboardPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20, right: 30),
                 height: 60,
-                width: 600,
+                width: 300,
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all(Size(950, 100)),
@@ -42,9 +109,12 @@ class _State extends State<DashboardPage> {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.history, color: Colors.white, size: 44),
-                  label: const Text("Historique de commandes", style: TextStyle(fontSize: 40)//elevated btton background color
-                  ),
+                  icon:
+                      const Icon(Icons.history, color: Colors.white, size: 44),
+                  label: const Text("Historique",
+                      style: TextStyle(
+                          fontSize: 40) //elevated btton background color
+                      ),
                 ),
               ),
             ],
@@ -99,8 +169,7 @@ class _State extends State<DashboardPage> {
                                 children: [
                                   Text("JeanMichel",
                                       style: TextStyle(fontSize: 40)),
-                                  Text("Marc",
-                                      style: TextStyle(fontSize: 40)),
+                                  Text("Marc", style: TextStyle(fontSize: 40)),
                                   Text("Martin",
                                       style: TextStyle(fontSize: 40)),
                                 ],
@@ -123,7 +192,7 @@ class _State extends State<DashboardPage> {
                     border: Border.all(color: Colors.black, width: 2.0),
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Column(
+                  child: Column(
                     children: [
                       SizedBox(height: 10),
                       Text("Statistique", style: TextStyle(fontSize: 40)),
@@ -131,15 +200,17 @@ class _State extends State<DashboardPage> {
                       Text.rich(
                         TextSpan(
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Commandes éffectués :\n       ",
                               style: TextStyle(fontSize: 40),
                             ),
                             TextSpan(
-                              text: "35",
-                              style: TextStyle(fontSize: 40, color: Colors.green), // Couleur différente
+                              text: pickerTotalOrder.toString(),
+                              style: const TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.green), // Couleur différente
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: " commandes",
                               style: TextStyle(fontSize: 40),
                             ),
@@ -151,10 +222,10 @@ class _State extends State<DashboardPage> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 45),
+            margin: const EdgeInsets.only(top: 45, left: 10),
             child: ElevatedButton(
               style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(Size(1000, 100)),
+                  minimumSize: MaterialStateProperty.all(Size(1030, 100)),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
                   backgroundColor: MaterialStateProperty.all(Colors.green)),
