@@ -4,6 +4,7 @@ import 'package:dev/classes/OrderClass.dart';
 import 'package:dev/classes/PickerClass.dart';
 import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';
+import 'package:dev/conf.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -63,35 +64,35 @@ class _OrdersPageState extends State<OrdersPage> {
                 flex: 10, // 13% de l'espace
                 child: Container(
                   alignment: Alignment.center,
-                  child: const Text('Numéro',style: TextStyle(fontFamily: 'Comfortaa')), // Première colonne
+                  child: Text('Numéro',style: TextStyle(fontFamily: Conf.police)), // Première colonne
                 )
               ),
               Flexible(
                   flex: 10, // 13% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: const Text('Heure d\'arrivée',style: TextStyle(fontFamily: 'Comfortaa')), // Deuxième colonne
+                    child: Text('Heure d\'arrivée',style: TextStyle(fontFamily: Conf.police)), // Deuxième colonne
                   )
               ),
               Flexible(
                   flex: 30, // 38% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: const Text('Details de la commande',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                    child: Text('Details de la commande',style: TextStyle(fontFamily: Conf.police)), // troisième colonne
                   )
               ),
               Flexible(
                   flex: 15, // 18% de l'espace
                   child: Container(
                     alignment: Alignment.center,
-                    child: const Text('Préparateur',style: TextStyle(fontFamily: 'Comfortaa')), // quatrième colonne
+                    child: Text('Préparateur',style: TextStyle(fontFamily: Conf.police)), // quatrième colonne
                   )
               ),
               Flexible(
                 flex: 15, // 18% de l'espace
                 child: Container(
                   alignment: Alignment.center,
-                  child: const Text('Etat commandes',style: TextStyle(fontFamily: 'Comfortaa')), // troisième colonne
+                  child: Text('Etat commandes',style: TextStyle(fontFamily: Conf.police)), // troisième colonne
                 )
               )
             ]
@@ -132,14 +133,14 @@ class _OrdersPageState extends State<OrdersPage> {
                                 flex: 10, // 20% de l'espace
                                 child: Container(
                                   alignment: Alignment.center,
-                                  child: Text('N°${order.idOrder}', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                  child: Text('N°${order.idOrder}', style: TextStyle(fontFamily: Conf.police)),
                                 ),
                               ),
                               Flexible(
                                 flex: 10, // 30% de l'espace
                                 child: Container(
                                   alignment: Alignment.center,
-                                  child: Text(order.time ?? 'Inconnu', style: const TextStyle(fontFamily: 'Comfortaa')),
+                                  child: Text(order.time ?? 'Inconnu', style: TextStyle(fontFamily: Conf.police)),
                                 ),
                               ),
                               Flexible(
@@ -150,11 +151,11 @@ class _OrdersPageState extends State<OrdersPage> {
                                     future: Orders().fetchOrdersContent(order.idOrder),
                                     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                                       if (snapshot.hasError) {
-                                        return const Text('Erreur', style: TextStyle(fontFamily: 'Comfortaa'));
+                                        return Text('Erreur', style: TextStyle(fontFamily: Conf.police));
                                       } else if (snapshot.hasData) {
                                         return Text(snapshot.data!, style: const TextStyle(fontFamily: 'Comfortaa'));
                                       } else {
-                                        return const Text('Aucun détail', style: TextStyle(fontFamily: 'Comfortaa'));
+                                        return const CircularProgressIndicator();
                                       }
                                     },
                                   ),
@@ -169,9 +170,9 @@ class _OrdersPageState extends State<OrdersPage> {
                                         future: Pickers().fetchPickerUsername(order.idPicker),
                                         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                                           if (snapshot.hasError) {
-                                            return const Text('Erreur', style: TextStyle(fontFamily: 'Comfortaa'));
+                                            return Text('Erreur', style: TextStyle(fontFamily: Conf.police));
                                           } else {
-                                            return Text('${snapshot.data}', style: const TextStyle(fontFamily: 'Comfortaa'));
+                                            return Text('${snapshot.data}', style: TextStyle(fontFamily: Conf.police));
                                           }
                                         },
                                       ),
