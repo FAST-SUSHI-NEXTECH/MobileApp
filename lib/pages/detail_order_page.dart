@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:dev/widgets/clock_appbar.dart';
 import '../classes/OrderClass.dart';
 import '../conf.dart';
+import '../widgets/order_detail_appbar.dart';
 import '../pages/OrdersPage.dart';
 
 void main() {
@@ -28,10 +28,14 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ClockAppBar(),
-      body: Center(
-        child: Text('Affichage des détails pour la commande ID: $orderId'),
-      ),
+        appBar: OrderAppBar(
+            order: Order(
+              idOrder: 123,
+              orderContentAppetizer: 'Salade',
+              orderContentPlate: 'Steak',
+              orderContentDessert: 'Tiramisu',
+            )
+        ),
         body: Column(
             mainAxisSize: MainAxisSize.min, // Utilisez MainAxisSize.min pour que la colonne prenne juste l'espace nécessaire.
             children: [
