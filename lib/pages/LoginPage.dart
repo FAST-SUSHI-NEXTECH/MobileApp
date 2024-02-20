@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:dev/conf.dart';
 
 class Picker {
-  final String? nom;
-  final String? prenom;
+  late final String? nom;
+  late final String? prenom;
   final int? permission;
 
   Picker({this.nom, this.prenom, this.permission});

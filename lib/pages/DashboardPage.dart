@@ -18,6 +18,11 @@ class DashboardPage extends StatefulWidget {
 class _State extends State<DashboardPage> {
   int? idPicker;
   int? pickerTotalOrder;
+  Picker? picker1;
+  Picker? picker2;
+  Picker? picker3;
+  var data;
+
   Future<void> getIdPicker() async {
     final response = await http.post(
       Uri.parse('${Conf.ipApi}/user/picker/username'),
@@ -65,12 +70,108 @@ class _State extends State<DashboardPage> {
     if (response.statusCode == 200) {
       if (data is List && (data.isNotEmpty)) {
         var firstItem = data[0];
-          pickerTotalOrder = firstItem['total_order'];
-
+        pickerTotalOrder = firstItem['total_order'];
       }
     }
   }
 
+  Future<void> getPickerLeaderBoard() async {
+    final response = await http
+        .get(Uri.parse('${Conf.ipApi}/user/picker/leaderboard'), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${Conf.token}',
+    });
+    data = json.decode(response.body);
+    if (response.statusCode == 200) {
+      if (data is List && (data.isNotEmpty)) {
+        picker1?.prenom = data[0]['first_name'];
+        picker2?.prenom = data[1]['first_name'];
+        picker3?.prenom = data[2]['first_name'];
+      }
+    }
+  }
+
+  switchAffichage() {
+    if (data.length == 1) {
+      Column(
+        children: [
+          firstPickerIcon(),
+        ],
+      );
+      SizedBox(width: 60);
+      Column(
+        children: [
+          firstPickerName(),
+        ],
+      );
+    } else if (data.length == 2) {
+      Column(
+        children: [
+          firstPickerIcon(),
+          secondPickerIcon(),
+        ],
+      );
+      SizedBox(width: 60);
+      Column(
+        children: [
+          firstPickerName(),
+          secondPickerName(),
+        ],
+      );
+    } else if(data.length == 2){
+      Column(
+        children: [
+          firstPickerIcon(),
+          secondPickerIcon(),
+          thirdPickerIcon(),
+        ],
+      );
+      SizedBox(width: 60);
+      Column(
+        children: [
+          firstPickerName(),
+          secondPickerName(),
+          thirdPickerName(),
+        ],
+      );
+    }
+  }
+
+  firstPickerIcon() {
+    const Icon(
+      Icons.emoji_events,
+      size: 50,
+      color: Colors.amber,
+    );
+  }
+
+  firstPickerName() {
+    Text(picker1!.prenom.toString());
+  }
+
+  secondPickerIcon() {
+    const Icon(
+      Icons.emoji_events,
+      size: 50,
+      color: Colors.grey,
+    );
+  }
+
+  secondPickerName() {
+    Text(picker2!.prenom.toString());
+  }
+
+  thirdPickerIcon() {
+    const Icon(
+      Icons.emoji_events,
+      size: 50,
+      color: Color.fromARGB(255, 169, 113, 66),
+    );
+  }
+
+  thirdPickerName() {
+    Text(picker3!.prenom.toString());
+  }
 
   @override
   void initState() {
@@ -81,8 +182,10 @@ class _State extends State<DashboardPage> {
   Future<void> fetchData() async {
     await getIdPicker();
     await getPickerTotalOrder();
+    await getPickerLeaderBoard();
     setState(() {}); // Met à jour le widget après avoir récupéré les données
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ClockAppBar(),
