@@ -188,4 +188,31 @@ class Orders {
       } return [];
     }
   }
+
+  Future<double> fetchOrderPrice(int? idOrder) async {
+
+    try {
+      var response = await http.post(
+          Uri.parse("${Conf.ipApi}/order/total/id"),
+          headers: <String, String>{
+            'accept': 'application/json',
+            'Authorization': 'Bearer ${Conf.token}',
+            'Content-Type': 'application/json'
+          },
+          body: jsonEncode(<String, int?>{
+            'id_order': idOrder
+          })
+      );
+
+      // Convertit la réponse en objet JSON
+      var data = json.decode(response.body);
+      double orderPrice = data[0]["TOTAL_ORDER"];
+
+      return orderPrice;
+
+    } catch (e) {
+      if (kDebugMode) {print('Exception: $e');
+      } return 0;
+    }
+  }
 }
