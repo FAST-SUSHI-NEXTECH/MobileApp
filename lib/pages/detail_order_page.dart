@@ -150,6 +150,38 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                             fontSize: 22, // Ajustez la taille du texte ici
                           )
                         )
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              fixedSize:
+                              MaterialStateProperty.all<Size>(const Size(200, 80)),
+                              backgroundColor: MaterialStateProperty.all(
+                            (_checklist / _orderlength) == 1
+                                ? Colors.blue
+                                : Colors.grey,
+                          )),
+                          onPressed: () {
+                            if (_checklist / _orderlength == 1) {
+                              final orders = Orders();
+                              orders.updateOrderState(3, orderId);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OrdersPage()),
+                              );
+                            }
+                          },
+                          child: Text(
+                              'Terminer',
+                              style: TextStyle(
+                                fontFamily: Conf.police,
+                                fontSize: 22, // Ajustez la taille du texte ici
+                              )
+                          )
+                      )
+                    ]),
+              )
+            ]));
   }
 
   Widget _buildListSection(
