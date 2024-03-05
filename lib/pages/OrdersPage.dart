@@ -7,7 +7,7 @@ import 'package:dev/widgets/order_state_container.dart';
 import 'package:dev/conf.dart';
 
 class OrdersPage extends StatefulWidget {
-  const OrdersPage({Key? key}) : super(key: key);
+  const OrdersPage({super.key});
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();
