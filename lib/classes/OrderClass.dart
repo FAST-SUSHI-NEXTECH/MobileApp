@@ -94,7 +94,7 @@ class Orders {
     }
   }
 
-  Future<http.Response> updateOrderState(int? orderState, int? orderId) async {
+  Future<void> updateOrderState(int? orderState, int? orderId) async {
     final url = Uri.parse("${Conf.ipApi}/order/state/update");
 
     Map<String, dynamic> body = {
@@ -102,7 +102,7 @@ class Orders {
       'id_order': orderId
     };
 
-    final response = await http.put(
+    await http.put(
       url,
       headers: {
         'Authorization': 'Bearer ${Conf.token}',
@@ -111,10 +111,9 @@ class Orders {
       },
       body: json.encode(body),
     );
-    return response;
   }
 
-  Future<http.Response> updateOrderPicker(int? pickerId, int? orderId) async {
+  Future<void> updateOrderPicker(int? pickerId, int? orderId) async {
     final url = Uri.parse("${Conf.ipApi}/order/picker/update");
 
     Map<String, dynamic> body = {
@@ -122,7 +121,7 @@ class Orders {
       'id_order': orderId
     };
 
-    final response = await http.put(
+    await http.put(
       url,
       headers: {
         'Authorization': 'Bearer ${Conf.token}',
@@ -131,7 +130,6 @@ class Orders {
       },
       body: json.encode(body),
     );
-    return response;
   }
 
   Future<List<Order>> fetchOrdersContent(int? idOrder) async {
