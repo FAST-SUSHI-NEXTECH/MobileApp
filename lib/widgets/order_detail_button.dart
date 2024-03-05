@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../classes/OrderClass.dart';
+import '../classes/PickerClass.dart';
 import '../conf.dart';
+import '../pages/LoginPage.dart';
 import '../pages/detail_order_page.dart';
 
 class OrderDetailButton extends StatelessWidget {
@@ -45,20 +47,23 @@ class OrderDetailButton extends StatelessWidget {
   }
 
   Future<void> Function()? _getButtonOnPressed(BuildContext context, int? state) {
-    switch (state) {
-      case 1 || 2:
-        return
-          () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailOrderPage(orderId: order.idOrder)
-              ),
-            );
-          };
-      default:
-        return null;
-    }
+    return () async {
+      if (state == 1 || state == 2) {
+        try {
+          // Récupération de l'ID de manière asynchrone
+          final int? currentPickerId = await Pickers().fetchPickerId('${LoginPage.username}');
+          // Navigation vers DetailOrderPage avec l'ID récupéré
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailOrderPage(orderId: order.idOrder, pickerId: order.idPicker, currentPickerId: currentPickerId, date: order.time)
+            ),
+          );
+        } catch (e) {
+          print("Erreur lors de la récupération du Picker ID: $e");
+        }
+      }
+    };
   }
 
   String _getButtonLabel(int? state) {
