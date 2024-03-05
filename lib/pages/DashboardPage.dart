@@ -18,10 +18,11 @@ class DashboardPage extends StatefulWidget {
 class _State extends State<DashboardPage> {
   int? idPicker;
   int? pickerTotalOrder;
-  Picker? picker1;
-  Picker? picker2;
-  Picker? picker3;
-  var data;
+  String? prenomPicker1;
+  String? prenomPicker2;
+  String? prenomPicker3;
+  late dynamic data = [];
+  late dynamic iconList = [];
 
   Future<void> getIdPicker() async {
     final response = await http.post(
@@ -84,98 +85,70 @@ class _State extends State<DashboardPage> {
     data = json.decode(response.body);
     if (response.statusCode == 200) {
       if (data is List && (data.isNotEmpty)) {
-        picker1?.prenom = data[0]['first_name'];
-        picker2?.prenom = data[1]['first_name'];
-        picker3?.prenom = data[2]['first_name'];
+        if (kDebugMode) {
+          print(response.body);
+          print(data.length);
+        }
+        if (data.length == 1) {
+          prenomPicker1 = data[0]['first_name'];
+          if (kDebugMode) {
+            print(prenomPicker1);
+          }
+        }
+        if (data.length == 2) {
+          prenomPicker1 = data[0]['first_name'];
+          prenomPicker2 = data[1]['first_name'];
+          if (kDebugMode) {
+            print(prenomPicker1);
+            print(prenomPicker2);
+          }
+        }
+        if (data.length == 3) {
+          prenomPicker1 = data[0]['first_name'];
+          prenomPicker2 = data[1]['first_name'];
+          prenomPicker3 = data[2]['first_name'];
+          if (kDebugMode) {
+            print(prenomPicker1);
+            print(prenomPicker2);
+            print(prenomPicker3);
+          }
+        }
+        iconList = [
+          if (prenomPicker1 != null) firstPickerIcon(),
+          if (prenomPicker2 != null) secondPickerIcon(),
+          if (prenomPicker3 != null) thirdPickerIcon(),
+        ];
       }
     }
   }
 
-  switchAffichage() {
-    if (data.length == 1) {
-      Column(
-        children: [
-          firstPickerIcon(),
-        ],
-      );
-      SizedBox(width: 60);
-      Column(
-        children: [
-          firstPickerName(),
-        ],
-      );
-    } else if (data.length == 2) {
-      Column(
-        children: [
-          firstPickerIcon(),
-          secondPickerIcon(),
-        ],
-      );
-      SizedBox(width: 60);
-      Column(
-        children: [
-          firstPickerName(),
-          secondPickerName(),
-        ],
-      );
-    } else if(data.length == 2){
-      Column(
-        children: [
-          firstPickerIcon(),
-          secondPickerIcon(),
-          thirdPickerIcon(),
-        ],
-      );
-      SizedBox(width: 60);
-      Column(
-        children: [
-          firstPickerName(),
-          secondPickerName(),
-          thirdPickerName(),
-        ],
-      );
-    }
-  }
-
-  firstPickerIcon() {
-    const Icon(
+  Widget firstPickerIcon() {
+    return const Icon(
       Icons.emoji_events,
       size: 50,
       color: Colors.amber,
     );
   }
 
-  firstPickerName() {
-    Text(picker1!.prenom.toString());
-  }
-
-  secondPickerIcon() {
-    const Icon(
+  Widget secondPickerIcon() {
+    return const Icon(
       Icons.emoji_events,
       size: 50,
       color: Colors.grey,
     );
   }
 
-  secondPickerName() {
-    Text(picker2!.prenom.toString());
-  }
-
-  thirdPickerIcon() {
-    const Icon(
+  Widget thirdPickerIcon() {
+    return const Icon(
       Icons.emoji_events,
       size: 50,
       color: Color.fromARGB(255, 169, 113, 66),
     );
   }
 
-  thirdPickerName() {
-    Text(picker3!.prenom.toString());
-  }
-
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     fetchData();
   }
 
@@ -233,51 +206,32 @@ class _State extends State<DashboardPage> {
                     Container(
                       width: 500,
                       height: 240,
-                      padding: const EdgeInsets.only(left: 40),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
                           SizedBox(height: 10),
-                          Text(
+                          const Text(
                             "Classement",
                             style: TextStyle(fontSize: 40),
                           ),
                           SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.emoji_events,
-                                    size: 50,
-                                    color: Colors.amber,
-                                  ),
-                                  Icon(
-                                    Icons.emoji_events,
-                                    size: 50,
-                                    color: Colors.grey,
-                                  ),
-                                  Icon(
-                                    Icons.emoji_events,
-                                    size: 50,
-                                    color: Color.fromARGB(255, 169, 113, 66),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 60),
-                              Column(
-                                children: [
-                                  Text("JeanMichel",
-                                      style: TextStyle(fontSize: 40)),
-                                  Text("Marc", style: TextStyle(fontSize: 40)),
-                                  Text("Martin",
-                                      style: TextStyle(fontSize: 40)),
-                                ],
-                              ),
-                            ],
+                          Expanded( // Pour permettre au ListView.builder de se développer et de remplir l'espace disponible
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Row(
+                                  children : [
+                                    Padding(padding: const EdgeInsets.only(left: 120,right: 20), // Marge entre l'icône et le texte
+                                      child: iconList[index]),
+                                    Text('${data[index]['first_name']}',style: const TextStyle(fontSize: 40),textAlign: TextAlign.center),
+                                  ]
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -285,6 +239,7 @@ class _State extends State<DashboardPage> {
                   ],
                 ),
               ),
+
               SizedBox(width: 30),
               Container(
                   margin: const EdgeInsets.only(top: 30),
@@ -304,7 +259,7 @@ class _State extends State<DashboardPage> {
                         TextSpan(
                           children: [
                             const TextSpan(
-                              text: "Commandes éffectués :\n       ",
+                              text: "Commandes effectuées :\n       ",
                               style: TextStyle(fontSize: 40),
                             ),
                             TextSpan(

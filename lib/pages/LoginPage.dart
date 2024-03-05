@@ -1,6 +1,5 @@
 import 'package:dev/conf.dart';
 import 'package:dev/pages/DashboardPage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -33,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   int? permission;
   bool autorise = false;
 
+  bool autorisationPage = false;
+
   Future<void> postData() async {
     // print(usernameController.text);
     // print(passwordController.text);
@@ -48,16 +49,16 @@ class _LoginPageState extends State<LoginPage> {
         'password': passwordController.text,
       }),
     );
-    Map<String,dynamic> ResponseBody = json.decode(response.body);
+    Map<String, dynamic> ResponseBody = json.decode(response.body);
     // print(response.statusCode);
     if (response.statusCode == 200) {
       // Gérer la réponse réussie ici
       // print('Réponse du serveur : ${response.body}');
-        if (ResponseBody['token'] != null) {
-          Conf.token = ResponseBody['token'].toString();
-        } else {
-          Conf.token = null;
-        }
+      if (ResponseBody['token'] != null) {
+        Conf.token = ResponseBody['token'].toString();
+      } else {
+        Conf.token = null;
+      }
       // print(Conf.token);
     } else {
       // Gérer l'échec de la requête ici
@@ -75,49 +76,39 @@ class _LoginPageState extends State<LoginPage> {
     );
     // print(response.body);
     var ResponseBody = json.decode(response.body);
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       for (var singleUser in ResponseBody) {
-        if(singleUser['last_name'] != null){
+        if (singleUser['last_name'] != null) {
           LoginPage.nom = singleUser['last_name'].toString();
         } else {
           LoginPage.nom = null;
         }
-        if(singleUser['first_name'] != null){
+        if (singleUser['first_name'] != null) {
           LoginPage.prenom = singleUser['first_name'].toString();
         } else {
           LoginPage.prenom = null;
         }
-        if(singleUser['username'] != null){
+        if (singleUser['username'] != null) {
           LoginPage.username = singleUser['username'].toString();
         } else {
           LoginPage.username = null;
         }
-        if(singleUser['permission'] != null){
+        if (singleUser['permission'] != null) {
           permission = int.parse(singleUser['permission'].toString());
         } else {
           permission = null;
         }
-    }
+      }
     }
   }
-
 
   void _handleLogin() async {
     await postData(); // Attend la fin de la requête postData
     await getData();
     if (permission == 2) {
-      // La requête postData est terminée et autorisée, maintenant effectuez getData
-      // Naviguez vers la page suivante uniquement si la requête getData est terminée avec succès
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashboardPage(),
-        ),
-
-      );
-      print('${Conf.token}');
+      autorisationPage = true;
     } else {
-      print("Vous avez pas les permissions");
+      print("Vous n'avez pas les permissions");
     }
   }
 
@@ -333,7 +324,14 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         _handleLogin();
-
+                        if(autorisationPage) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DashboardPage(),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),
