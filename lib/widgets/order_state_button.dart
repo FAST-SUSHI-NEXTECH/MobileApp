@@ -12,12 +12,12 @@ class OrderStateButton extends StatelessWidget {
   final Function(int?, int?) onUpdateOrderPicker;
 
   const OrderStateButton({
-    Key? key,
+    super.key,
     this.orderState,
     required this.order,
     required this.onUpdateOrderState,
     required this.onUpdateOrderPicker
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
