@@ -123,33 +123,33 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                 ],
               )),
               Container(
-                  height: 100.0,
-                  width: 900,
-                  alignment: Alignment.center,
-                  child:
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          (_checklist / _orderlength) == 1 ? Colors.blue : Colors.grey,
+                height: 150,
+                width: 1000,
+                alignment: Alignment.center,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton.icon(
+                        style: ButtonStyle(
+                            fixedSize:
+                                MaterialStateProperty.all<Size>(const Size(200, 80)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.black87)),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const OrdersPage()),
+                          );
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                        label: Text(
+                          'Revenir',
+                          style: TextStyle(
+                            fontFamily: Conf.police,
+                            fontSize: 22, // Ajustez la taille du texte ici
+                          )
                         )
-                    ),
-                    onPressed: () {
-                      if (_checklist / _orderlength == 1){
-                        //onUpdateOrderState(3, order.idOrder);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const OrdersPage()
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('Terminer la commande'),
-                  )
-              ),
-          ]
-      )
-    );
   }
 
   Widget _buildListSection(
