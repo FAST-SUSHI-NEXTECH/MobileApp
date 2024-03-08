@@ -4,7 +4,7 @@ import '../conf.dart';
 class OrderStateContainer extends StatelessWidget {
   final int? orderState;
 
-  const OrderStateContainer({Key? key, this.orderState}) : super(key: key);
+  const OrderStateContainer({super.key, this.orderState});
 
   @override
   Widget build(BuildContext context) {

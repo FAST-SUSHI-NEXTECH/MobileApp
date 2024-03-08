@@ -8,9 +8,8 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // Définit la taille préférée de l'appBar
 
-  const ClockAppBar({Key? key})
-      : preferredSize = const Size.fromHeight(125.0),
-        super(key: key);
+  const ClockAppBar({super.key})
+      : preferredSize = const Size.fromHeight(125.0);
 
   @override
   ClockAppBarState createState() => ClockAppBarState(); // Rendre cette ligne publique
