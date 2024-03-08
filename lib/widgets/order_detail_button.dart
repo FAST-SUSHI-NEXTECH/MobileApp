@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../classes/OrderClass.dart';
+import '../classes/order_class.dart';
 import '../classes/picker_class.dart';
 import '../conf.dart';
 import '../pages/LoginPage.dart';

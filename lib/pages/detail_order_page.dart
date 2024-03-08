@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../classes/OrderClass.dart';
+import '../classes/order_class.dart';
 import '../conf.dart';
 import '../widgets/order_detail_appbar.dart';
 import '../pages/orders_page.dart';

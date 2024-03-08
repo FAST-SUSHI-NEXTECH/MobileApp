@@ -1,6 +1,6 @@
 import 'package:dev/widgets/order_detail_button.dart';
 import 'package:flutter/material.dart';
-import 'package:dev/classes/OrderClass.dart';
+import 'package:dev/classes/order_class.dart';
 import 'package:dev/classes/picker_class.dart';
 import 'package:dev/widgets/order_state_button.dart';
 import 'package:dev/widgets/order_state_container.dart';

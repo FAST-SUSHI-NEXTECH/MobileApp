@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dev/conf.dart';
-import 'package:dev/classes/OrderClass.dart';
+import 'package:dev/classes/order_class.dart';
 import '../classes/picker_class.dart';
 
 class OrderAppBar extends StatelessWidget implements PreferredSizeWidget {
