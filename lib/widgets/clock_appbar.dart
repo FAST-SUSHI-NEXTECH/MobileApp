@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../conf.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:dev/pages/LoginPage.dart';
+import '../conf.dart';
+import '../pages/LoginPage.dart';
 
 class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
