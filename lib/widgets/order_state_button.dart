@@ -72,6 +72,7 @@ class OrderStateButton extends StatelessWidget {
       case 3:
         return () async {
           // Met à jour l'état de la commande à 1 (Prendre en charge la commande)
+          await onUpdateOrderPicker(null, order.idOrder);
           await onUpdateOrderState(1, order.idOrder);
         };
       default:
