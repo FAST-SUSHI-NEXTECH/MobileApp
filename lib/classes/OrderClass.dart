@@ -13,8 +13,9 @@ class Order {
   final String? orderContentAppetizer;
   final String? orderContentPlate;
   final String? orderContentDessert;
+  final int? quantity;
 
-  Order({this.idOrder, this.time, this.idPicker, this.orderState, this.idProduct,this.orderContentAppetizer, this.orderContentPlate, this.orderContentDessert});
+  Order({this.idOrder, this.time, this.idPicker, this.orderState, this.idProduct,this.orderContentAppetizer, this.orderContentPlate, this.orderContentDessert, this.quantity});
 }
 
 class Orders {
@@ -159,17 +160,24 @@ class Orders {
           if (item['type_product'] == 'appetizer'){
             ordersProduct.add(Order(
               idProduct: item['id_product'],
-              orderContentAppetizer: item['product_name']));
+              orderContentAppetizer: item['product_name'],
+              quantity: item['quantity']
+            ));
 
           } else if (item['type_product'] == 'plate') {
             ordersProduct.add(Order(
               idProduct: item['id_product'],
-              orderContentPlate: item['product_name']));
+              orderContentPlate: item['product_name'],
+              quantity: item['quantity']
+            ));
+
 
           } else if (item['type_product'] == 'dessert') {
             ordersProduct.add(Order(
               idProduct: item['id_product'],
-              orderContentDessert: item['product_name']));
+              orderContentDessert: item['product_name'],
+              quantity: item['quantity']
+            ));
 
           } else if (kDebugMode) {
               print('erreur de produit (mauvais type de produit)');
