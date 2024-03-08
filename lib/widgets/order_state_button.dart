@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../classes/OrderClass.dart';
 import '../classes/PickerClass.dart';
+import '../conf.dart';
 
 class OrderStateButton extends StatelessWidget {
   final int? orderState;
@@ -31,8 +32,8 @@ class OrderStateButton extends StatelessWidget {
         ),
         onPressed: _getButtonOnPressed(context, orderState),
         label: Text(_getButtonLabel(orderState),
-          style: const TextStyle(
-              fontFamily: 'Comfortaa',
+          style: TextStyle(
+              fontFamily: Conf.police,
               fontSize: 17
           ),
         ),

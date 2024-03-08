@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../conf.dart';
 
 class OrderStateContainer extends StatelessWidget {
   final int? orderState;
@@ -14,8 +15,8 @@ class OrderStateContainer extends StatelessWidget {
       child: Center(
         child: Text(
           _getContainerLabel(orderState),
-          style: const TextStyle(
-            fontFamily: 'Comfortaa',
+          style: TextStyle(
+            fontFamily: Conf.police,
             color: Colors.black54,
             fontSize: 18
           ),
