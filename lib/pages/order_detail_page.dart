@@ -139,7 +139,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const OrdersPage()),
+                                builder: (context) => const OrdersPage(currentOrderState: 'new')),
                           );
                         },
                         icon: const Icon(Icons.arrow_back),
@@ -167,7 +167,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const OrdersPage()),
+                                    builder: (context) => const OrdersPage(currentOrderState: 'new')),
                               );
                             }
                           },

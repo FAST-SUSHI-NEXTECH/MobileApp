@@ -7,16 +7,17 @@ import '../widgets/order_state_container.dart';
 import '../conf.dart';
 
 class OrdersPage extends StatefulWidget {
-  const OrdersPage({super.key});
+  final String currentOrderState;
+  const OrdersPage(
+  {super.key, required this.currentOrderState});
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();
 }
 
 class _OrdersPageState extends State<OrdersPage> {
-  String currentOrderState = "new";
   int expandedIndex = -1; // Index de l'élément étendu, -1 signifie aucun élément étendu
-  // Instancie la classe Orders
+  // Instancie la class Orders
   Orders orders = Orders();
   List<Order> ordersList = []; // Liste pour stocker les objets Order
 
@@ -29,7 +30,7 @@ class _OrdersPageState extends State<OrdersPage> {
 
   // Méthode pour appeler fetchOrders et mettre à jour l'état de la liste Order
   Future<void> fetchOrders() async {
-    List<Order> fetchedOrders = await orders.fetchOrders(currentOrderState);
+    List<Order> fetchedOrders = await orders.fetchOrders(widget.currentOrderState);
     setState(() {
       ordersList = fetchedOrders;
     });
