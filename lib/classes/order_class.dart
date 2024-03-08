@@ -9,16 +9,20 @@ class Order {
   final String? time;
   final int? idPicker;
   final int? orderState;
-  final String? orderContent;
+  final int? idProduct;
+  final String? orderContentAppetizer;
+  final String? orderContentPlate;
+  final String? orderContentDessert;
+  final int? quantity;
 
-  Order({this.idOrder, this.time, this.idPicker, this.orderState, this.orderContent});
+  Order({this.idOrder, this.time, this.idPicker, this.orderState, this.idProduct,this.orderContentAppetizer, this.orderContentPlate, this.orderContentDessert, this.quantity});
 }
 
 class Orders {
   Future<List<Order>> fetchOrders(String currentOrderState) async {
     try {
       final response = await http.get(
-        Uri.parse("${Conf.ipApi}/order"),
+        Uri.parse("${Conf.ipApi}/order/all"),
         headers: {
           'Authorization': 'Bearer ${Conf.token}',
           'Accept': 'application/json',
@@ -91,7 +95,7 @@ class Orders {
     }
   }
 
-  Future<http.Response> updateOrderState(int? orderState, int? orderId) async {
+  Future<void> updateOrderState(int? orderState, int? orderId) async {
     final url = Uri.parse("${Conf.ipApi}/order/state/update");
 
     Map<String, dynamic> body = {
@@ -99,7 +103,7 @@ class Orders {
       'id_order': orderId
     };
 
-    final response = await http.put(
+    await http.put(
       url,
       headers: {
         'Authorization': 'Bearer ${Conf.token}',
@@ -108,10 +112,9 @@ class Orders {
       },
       body: json.encode(body),
     );
-    return response;
   }
 
-  Future<http.Response> updateOrderPicker(int? pickerId, int? orderId) async {
+  Future<void> updateOrderPicker(int? pickerId, int? orderId) async {
     final url = Uri.parse("${Conf.ipApi}/order/picker/update");
 
     Map<String, dynamic> body = {
@@ -119,7 +122,7 @@ class Orders {
       'id_order': orderId
     };
 
-    final response = await http.put(
+    await http.put(
       url,
       headers: {
         'Authorization': 'Bearer ${Conf.token}',
@@ -128,10 +131,12 @@ class Orders {
       },
       body: json.encode(body),
     );
-    return response;
   }
 
-  Future<String> fetchOrdersContent(int? idOrder) async {
+  Future<List<Order>> fetchOrdersContent(int? idOrder) async {
+
+    List<Order> ordersProduct = [];
+
     try {
       var response = await http.post(
           Uri.parse("${Conf.ipApi}/order/details"),
@@ -148,46 +153,74 @@ class Orders {
       // Convertit la réponse en objet JSON
       var data = json.decode(response.body);
 
-      String formatString(String originalString) {
-        if (originalString.length > 50) {
-          return '${originalString.substring(0, 45)}...';
-        } else {
-          return originalString;
-        }
-      }
-
       // Assurez-vous que data est une liste et prenez le premier élément
       if (data is List && data.isNotEmpty) {
-        // Initialiser une chaîne pour stocker tous les noms de produits
-        String allProducts = '';
-
         // Itérer sur chaque objet dans la liste
         for (var item in data) {
-          // Ajouter le nom du produit à la chaîne, suivi d'une virgule et d'un espace
-          allProducts += '${item['product_name']}, ';
+          if (item['type_product'] == 'appetizer'){
+            ordersProduct.add(Order(
+                idProduct: item['id_product'],
+                orderContentAppetizer: item['product_name'],
+                quantity: item['quantity']
+            ));
+
+          } else if (item['type_product'] == 'plate') {
+            ordersProduct.add(Order(
+                idProduct: item['id_product'],
+                orderContentPlate: item['product_name'],
+                quantity: item['quantity']
+            ));
+
+
+          } else if (item['type_product'] == 'dessert') {
+            ordersProduct.add(Order(
+                idProduct: item['id_product'],
+                orderContentDessert: item['product_name'],
+                quantity: item['quantity']
+            ));
+
+          } else if (kDebugMode) {
+            print('erreur de produit (mauvais type de produit)');
+          }
         }
-
-        allProducts = formatString(allProducts.substring(0, allProducts.length - 2));
-
-        if (kDebugMode) {
-          print(allProducts);
-        }
-        return allProducts;
-
-      } else if (data.isEmpty) {
-        return '';
-
-      } else {
-        if (kDebugMode) {
-          print('Erreur: ${response.statusCode}');
-        }
-        return  'Erreur : Impossible de récupérer la commande';
       }
-    } catch (e) {
+
       if (kDebugMode) {
-        print('Erreur: $e');
+        print(ordersProduct);
       }
-      return  'Erreur : Exception lors de la requête';
+
+      return ordersProduct;
+
+    } catch (e) {
+      if (kDebugMode) {print('Exception: $e');
+      } return [];
+    }
+  }
+
+  Future<double> fetchOrderPrice(int? idOrder) async {
+
+    try {
+      var response = await http.post(
+          Uri.parse("${Conf.ipApi}/order/total/id"),
+          headers: <String, String>{
+            'accept': 'application/json',
+            'Authorization': 'Bearer ${Conf.token}',
+            'Content-Type': 'application/json'
+          },
+          body: jsonEncode(<String, int?>{
+            'id_order': idOrder
+          })
+      );
+
+      // Convertit la réponse en objet JSON
+      var data = json.decode(response.body);
+      double orderPrice = data[0]["TOTAL_ORDER"];
+
+      return orderPrice;
+
+    } catch (e) {
+      if (kDebugMode) {print('Exception: $e');
+      } return 0;
     }
   }
 }

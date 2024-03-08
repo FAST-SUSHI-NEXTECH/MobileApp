@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:dev/pages/HistoryPage.dart';
-import 'package:dev/pages/LoginPage.dart';
-import 'package:dev/pages/OrdersPage.dart';
-import 'package:dev/widgets/clock_appbar.dart';
+import 'package:dev/pages/login_page.dart';
+import 'package:dev/pages/orders_page.dart';
+import 'package:dev/widgets/clock_appbar_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -181,7 +180,7 @@ class _State extends State<DashboardPage> {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (_, __, ___) => const HistoryPage(),
+                        pageBuilder: (_, __, ___) => const OrdersPage(currentOrderState: 'old'),
                       ),
                     );
                   },
@@ -291,7 +290,7 @@ class _State extends State<DashboardPage> {
                 Navigator.push(
                     context,
                     PageRouteBuilder(
-                        pageBuilder: (_, __, ___) => OrdersPage()));
+                        pageBuilder: (_, __, ___) => OrdersPage(currentOrderState: 'new',)));
               },
               child: const Text("Je prend mon service",
                   style: TextStyle(fontSize: 40)),

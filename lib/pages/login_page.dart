@@ -1,5 +1,5 @@
 import 'package:dev/conf.dart';
-import 'package:dev/pages/DashboardPage.dart';
+import 'package:dev/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

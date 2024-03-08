@@ -1,7 +1,7 @@
-import 'package:dev/pages/DashboardPage.dart';
-import 'package:dev/pages/DetailCommandPage.dart';
-import 'package:dev/pages/LoginPage.dart';
-import 'package:dev/widgets/CustomNavBarWidget.dart';
+import 'package:dev/pages/dashboard_page.dart';
+import 'package:dev/pages/order_detail_page.dart';
+import 'package:dev/pages/login_page.dart';
+import 'package:dev/widgets/custom_navbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;

@@ -1,6 +1,6 @@
 import 'package:dev/conf.dart';
-import 'package:dev/pages/LoginPage.dart';
-import 'package:dev/pages/OrdersPage.dart';
+import 'package:dev/pages/login_page.dart';
+import 'package:dev/pages/orders_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,7 +14,7 @@ class CustomNavBarWidget extends StatefulWidget {
 class _CustomNavBarWidgetState extends State<CustomNavBarWidget> {
   void BackListCommand() {
     Navigator.push(context,
-        PageRouteBuilder(pageBuilder: (_, __, ___) => const OrdersPage()));
+        PageRouteBuilder(pageBuilder: (_, __, ___) => const OrdersPage(currentOrderState: 'old',)));
   }
 
   void Logout() {

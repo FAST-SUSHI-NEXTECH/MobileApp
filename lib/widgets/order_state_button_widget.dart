@@ -1,20 +1,23 @@
-import 'package:dev/pages/DetailCommandPage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../classes/OrderClass.dart';
-// import '../pages/DetailOrderPage.dart';
+import '../classes/order_class.dart';
+import '../classes/picker_class.dart';
+import '../conf.dart';
+import '../pages/login_page.dart';
 
 class OrderStateButton extends StatelessWidget {
   final int? orderState;
   final Order order;
   final Function(int?, int?) onUpdateOrderState;
+  final Function(int?, int?) onUpdateOrderPicker;
 
   const OrderStateButton({
-    Key? key,
+    super.key,
     this.orderState,
     required this.order,
-    required this.onUpdateOrderState
-  }) : super(key: key);
+    required this.onUpdateOrderState,
+    required this.onUpdateOrderPicker
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,8 @@ class OrderStateButton extends StatelessWidget {
         ),
         onPressed: _getButtonOnPressed(context, orderState),
         label: Text(_getButtonLabel(orderState),
-          style: const TextStyle(
-              fontFamily: 'Comfortaa',
+          style: TextStyle(
+              fontFamily: Conf.police,
               fontSize: 17
           ),
         ),
@@ -54,25 +57,23 @@ class OrderStateButton extends StatelessWidget {
   Future<void> Function()? _getButtonOnPressed(BuildContext context, int? state) {
     switch (state) {
       case 1:
-        return
-          () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailCommandPage()
-              ),
-            );
-            // Met à jour l'état de la commande à 2 (En cours de préparation)
-            await onUpdateOrderState(2, order.idOrder);
-          };
+        return () async {
+          int? idPicker = await Pickers().fetchPickerId('${LoginPage.username}');
+          if (kDebugMode) {
+            print(idPicker);
+          }
+          await onUpdateOrderPicker(idPicker, order.idOrder);
+          // Met à jour l'état de la commande à 2 (En cours de préparation)
+          await onUpdateOrderState(2, order.idOrder);
+        };
       case 2:
         return null;
       case 3:
-        return
-          () async {
-            // Met à jour l'état de la commande à 1 (Prendre en charge la commande)
-            await onUpdateOrderState(1, order.idOrder);
-          };
+        return () async {
+          // Met à jour l'état de la commande à 1 (Prendre en charge la commande)
+          await onUpdateOrderPicker(null, order.idOrder);
+          await onUpdateOrderState(1, order.idOrder);
+        };
       default:
         return null;
     }
