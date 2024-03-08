@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../classes/OrderClass.dart';
 import '../conf.dart';
 import '../widgets/order_detail_appbar.dart';
-import '../pages/OrdersPage.dart';
+import '../pages/orders_page.dart';
 
 void main() {
   runApp(const MaterialApp(
