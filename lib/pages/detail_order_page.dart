@@ -186,8 +186,6 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
 
   Widget _buildListSection(
       int? orderId, String category, int? currentPickerId, int? pickerId) {
-    // Remplacer par la récupération et le filtrage de vos données réelles en fonction de la catégorie
-    // Ceci est un placeholder pour l'exemple
     return Flexible(
       flex: 20,
       child: Container(
@@ -252,14 +250,14 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                           child: CachedNetworkImage(
                             imageUrl:
                                 "${Conf.ipImage}/images/product/${order.idProduct}/image/image.png",
-                            height: 100,
-                            width: 100,
+                            height: 90,
+                            width: 90,
                           )),
                       Text(
                         _getTextForCategory(order, category),
                         style: TextStyle(
                           fontFamily: Conf.police,
-                          fontSize: 18,
+                          fontSize: 16,
                           color: isSelected ? Colors.grey : null,
                           decoration:
                               isSelected ? TextDecoration.lineThrough : null,
