@@ -1,8 +1,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:dev/classes/order_class.dart';
 // import 'package:dev/classes/picker_class.dart';
-// import 'package:dev/widgets/order_state_button.dart';
-// import 'package:dev/widgets/order_state_container.dart';
+// import 'package:dev/widgets/order_state_button_widget.dart';
+// import 'package:dev/widgets/order_state_container_widget.dart';
 //
 // class HistoryPage extends StatefulWidget {
 //   const HistoryPage({Key? key}) : super(key: key);

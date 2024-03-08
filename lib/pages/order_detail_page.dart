@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../classes/order_class.dart';
 import '../conf.dart';
-import '../widgets/order_detail_appbar.dart';
+import '../widgets/order_detail_appbar_widget.dart';
 import '../pages/orders_page.dart';
 
 void main() {

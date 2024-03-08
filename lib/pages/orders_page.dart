@@ -1,9 +1,9 @@
-import 'package:dev/widgets/order_detail_button.dart';
+import 'package:dev/widgets/order_detail_button_widget.dart';
 import 'package:flutter/material.dart';
 import '../classes/order_class.dart';
 import '../classes/picker_class.dart';
-import '../widgets/order_state_button.dart';
-import '../widgets/order_state_container.dart';
+import '../widgets/order_state_button_widget.dart';
+import '../widgets/order_state_container_widget.dart';
 import '../conf.dart';
 
 class OrdersPage extends StatefulWidget {
