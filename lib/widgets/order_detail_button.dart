@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../classes/OrderClass.dart';
 import '../classes/PickerClass.dart';
@@ -39,7 +40,7 @@ class OrderDetailButton extends StatelessWidget {
 
   Color _getButtonColor(int? state) {
     switch (state) {
-      case 1 || 2:
+      case 1 || 2 || 3:
         return Colors.green;
       default:
         return Colors.red;
@@ -60,7 +61,22 @@ class OrderDetailButton extends StatelessWidget {
             ),
           );
         } catch (e) {
-          print("Erreur lors de la récupération du Picker ID: $e");
+          if (kDebugMode) {
+            print("Erreur lors de la récupération du Picker ID: $e");
+          }
+        }
+      } else  if (state == 3){
+        try {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailOrderPage(orderId: order.idOrder, pickerId: order.idPicker, date: order.time)
+            ),
+          );
+        } catch (e) {
+          if (kDebugMode) {
+            print("Erreur lors de la récupération du Picker ID: $e");
+          }
         }
       }
     };
@@ -68,7 +84,7 @@ class OrderDetailButton extends StatelessWidget {
 
   String _getButtonLabel(int? state) {
     switch (state) {
-      case 1 || 2:
+      case 1 || 2 || 3:
         return "Détail";
       default:
         return "ERREUR";
@@ -77,7 +93,7 @@ class OrderDetailButton extends StatelessWidget {
 
   IconData _getButtonIcon(int? state) {
     switch (state) {
-      case 1 || 2:
+      case 1 || 2 || 3:
         return Icons.list;
       default:
         return Icons.warning;
