@@ -34,14 +34,14 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   int _checklist = 0;
   int _orderlength = 1;
 
-  void _toggleSelection(String category, int index) {
+  void _toggleSelection(String category, int? quantity, int index) {
     setState(() {
       if (_selectedIndexesByCategory[category]!.contains(index)) {
         _selectedIndexesByCategory[category]!.remove(index);
-        _checklist--;
+        _checklist = _checklist - quantity!;
       } else {
         _selectedIndexesByCategory[category]!.add(index);
-        _checklist++;
+        _checklist = _checklist + quantity!;
       }
     });
   }
@@ -202,19 +202,10 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
               return const CircularProgressIndicator();
             }
 
-            List<Order> orders = [];
-            _orderlength = snapshot.data!
-                    .where((order) => order.orderContentAppetizer != null)
-                    .toList()
-                    .length +
-                snapshot.data!
-                    .where((order) => order.orderContentPlate != null)
-                    .toList()
-                    .length +
-                snapshot.data!
-                    .where((order) => order.orderContentDessert != null)
-                    .toList()
-                    .length;
+            List<Order> orders = snapshot.data!
+                .where((order) => order.quantity != null)
+                .toList();
+            _orderlength = orders.fold(0, (sum, current) => sum + (current.quantity ?? 0));
 
             // Filtrer les données en fonction de la catégorie si nécessaire
             if (category == 'Appetizers') {
@@ -241,7 +232,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                 return InkWell(
                     onTap: () {
                       if (currentPickerId == pickerId) {
-                        _toggleSelection(category, index);
+                        _toggleSelection(category, order.quantity, index);
                       }
                     },
                     child: Row(children: [
