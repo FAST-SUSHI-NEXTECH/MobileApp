@@ -254,7 +254,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                             width: 90,
                           )),
                       Text(
-                        _getTextForCategory(order, category),
+                        '${order.quantity} x  ${_getTextForCategory(order, category)}',
                         style: TextStyle(
                           fontFamily: Conf.police,
                           fontSize: 16,
