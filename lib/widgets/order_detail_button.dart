@@ -4,7 +4,7 @@ import '../classes/order_class.dart';
 import '../classes/picker_class.dart';
 import '../conf.dart';
 import '../pages/LoginPage.dart';
-import '../pages/detail_order_page.dart';
+import '../pages/order_detail_page.dart';
 
 class OrderDetailButton extends StatelessWidget {
   final int? orderState;
